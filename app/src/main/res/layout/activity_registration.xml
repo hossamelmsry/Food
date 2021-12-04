@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sidebar.registration.RegistrationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/a_r_s_u_s_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back_white" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/a_r_s_u_s_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/space_50dp"
+            android:text="text test"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif"
+            android:text="text test"
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_50dp"
+            android:padding="@dimen/space_5dp">
+
+            <Button
+                android:id="@+id/a_r_login"
+                android:layout_width="@dimen/space_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/space_10dp"
+                android:layout_weight="1"
+                android:elevation="@dimen/space_5dp"
+                android:background="@drawable/bg_purple_500_corner"
+                android:onClick="callLoginFromRetilar"
+                android:text="@string/login"
+                android:textColor="@android:color/white"
+                android:transitionName="transation_login" />
+
+            <Button
+                android:id="@+id/a_r_signup"
+                android:layout_width="@dimen/space_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_10dp"
+                android:layout_weight="1"
+                android:elevation="@dimen/space_5dp"
+                android:background="@drawable/bg_purple_500_corner"
+                android:onClick="callSignupFromRetilar"
+                android:text="@string/signup"
+                android:textColor="@android:color/white"
+                android:transitionName="transation_signup" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

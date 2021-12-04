@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/bg_gray_corner.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/bg_white_corner.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_add_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_arrow_back_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_arrow_down_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_arrow_up_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_bott_nav_account.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_bott_nav_cart.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_bott_nav_favorites.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_bott_nav_home.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_bott_nav_orders.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_facebook_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_left_arrow_right_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_notifications.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_rate_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_sub_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_vertion_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_wallet_24.xml" value="0.12083333333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_account.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_category.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_f_q_a.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_main.xml" value="0.536" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_notification.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_on_board.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_points.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_product_details.xml" value="0.25" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_qaactivity.xml" value="0.20208333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_refellar.xml" value="0.264" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_registration.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_search.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_settings.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_signup.xml" value="0.2" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_support_phone.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_verify_o_t_p.xml" value="0.332378223495702" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_wallet.xml" value="0.24938271604938272" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_cart_item.xml" value="0.27162629757785467" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_category_item.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_favorite_item.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_history_item.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_on_bording_item.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_product_item.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/fragment_account.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/fragment_cart.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/fragment_favorites.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/fragment_orders.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/image_slider_item.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/layout_plates.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/menu_header.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.21927083333333333" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/menu/navigation_menu.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/menu/slide_navigation_menu.xml" value="0.1292517006802721" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_500"
+    android:paddingTop="@dimen/space_10dp"
+    tools:context=".sidebar.registration.VerifyOTPActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/a_v_otpBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/todo"
+            android:padding="@dimen/space_5dp"
+            android:src="@drawable/ic_arrow_back_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/co_nde"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_70sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_15dp"
+            android:background="@drawable/bg_gray_corner"
+            android:orientation="vertical"
+            android:padding="@dimen/space_15dp"
+            android:paddingBottom="@dimen/space_15dp">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/verification_title"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/space_20dp"
+                android:layout_marginBottom="@dimen/space_15dp"
+                android:text="@string/verification_msg"
+                android:textColor="@android:color/white" />
+
+            <EditText
+                android:id="@+id/codeEt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_50dp"
+                android:background="@drawable/bg_white_corner"
+                android:gravity="center"
+                android:hint="000000"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/resentCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/something_wrong"
+                android:textColor="@android:color/white"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/codeSubmitBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_30dp"
+                android:layout_marginTop="@dimen/space_15dp"
+                android:layout_marginEnd="@dimen/space_30dp"
+                android:background="@drawable/bg_purple_500_corner"
+                android:text="@string/verify"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

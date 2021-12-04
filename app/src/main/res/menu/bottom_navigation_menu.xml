@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bott_nav_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_24"
+        android:title="@string/bott_nav_home" />
+    <item
+        android:id="@+id/bott_nav_cart"
+        android:enabled="true"
+        android:icon="@drawable/ic_cart_white"
+        android:title="@string/bott_nav_cart" />
+
+    <item
+        android:id="@+id/bott_nav_orders"
+        android:enabled="true"
+        android:icon="@drawable/ic_orders_white"
+        android:title="@string/bott_nav_orders" />
+
+    <item
+        android:id="@+id/bott_nav_favorites"
+        android:enabled="true"
+        android:icon="@drawable/ic_favorites_white"
+        android:title="@string/bott_nav_favorites" />
+
+    <item
+        android:id="@+id/bott_nav_account"
+        android:enabled="true"
+        android:icon="@drawable/ic_account_white"
+        android:title="@string/bott_nav_account" />
+</menu>

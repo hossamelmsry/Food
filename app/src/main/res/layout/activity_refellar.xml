@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/space_5dp"
+    tools:context=".sidebar.RefellarActivity">
+
+    <TextView
+        android:id="@+id/a_r_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:padding="@dimen/space_5dp"
+        android:textColor="@color/purple_700"
+        android:drawableStart="@mipmap/ic_points"
+        android:drawablePadding="@dimen/space_5dp"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/a_r_totalInvitaions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="total invitaion = 10" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_20dp"
+        android:text="@string/more_and_more"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/a_r_invite_facebook"
+            android:layout_width="@dimen/space_25dp"
+            android:layout_height="@dimen/space_25dp"
+            android:src="@drawable/ic_facebook_24" />
+
+        <ImageView
+            android:id="@+id/a_r_invite_instagram"
+            android:layout_width="@dimen/space_25dp"
+            android:layout_height="@dimen/space_25dp"
+            android:layout_marginStart="@dimen/space_20dp"
+            android:src="@drawable/ic_instagram_48" />
+
+        <ImageView
+            android:id="@+id/a_r_invite_twitter"
+            android:layout_width="@dimen/space_25dp"
+            android:layout_height="@dimen/space_25dp"
+            android:layout_marginStart="@dimen/space_20dp"
+            android:src="@drawable/ic_twitter_48" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_link_is" />
+
+        <TextView
+            android:id="@+id/a_r_userRefellarLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple_700"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All friends" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/a_r_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

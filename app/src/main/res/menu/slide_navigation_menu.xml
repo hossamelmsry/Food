@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/slide_nav_home"
+            android:icon="@drawable/ic_home_white"
+            android:title="@string/bott_nav_home" />
+    </group>
+<!---->
+    <item android:title="@string/side_nav_profile">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/slide_nav_registration"
+                    android:icon="@drawable/ic_login_24"
+                    android:title="@string/side_nav_registration" />
+                <item
+                    android:id="@+id/slide_nav_wallet"
+                    android:icon="@drawable/ic_wallet_24"
+                    android:title="@string/side_nav_wallet" />
+                <item
+                    android:id="@+id/slide_nav_refellar"
+                    android:icon="@drawable/ic_side_nav_refellar_24"
+                    android:title="@string/side_nav_refellar" />
+                <item
+                    android:id="@+id/slide_nav_points"
+                    android:icon="@mipmap/ic_points"
+                    android:title="@string/side_nav_points" />
+                <item
+                    android:id="@+id/slide_nav_logout"
+                    android:icon="@drawable/ic_logout_24"
+                    android:title="@string/side_nav_logout" />
+            </group>
+        </menu>
+    </item>
+<!---->
+    <item android:title="@string/side_nav_communicate">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/slide_nav_facebook"
+                    android:icon="@drawable/ic_facebook_24"
+                    android:title="@string/side_nav_facebook" />
+                <item
+                    android:id="@+id/slide_nav_twitter"
+                    android:icon="@drawable/ic_twitter_48"
+                    android:title="@string/side_nav_twitter" />
+                <item
+                    android:id="@+id/slide_nav_instagram"
+                    android:icon="@drawable/ic_instagram_48"
+                    android:title="@string/side_nav_instagram" />
+                <item
+                    android:id="@+id/slide_nav_tiktok"
+                    android:icon="@drawable/ic_tiktok_24"
+                    android:title="@string/side_nav_tiktok" />
+                <item
+                    android:id="@+id/slide_nav_youtube"
+                    android:icon="@drawable/ic_youtube_48"
+                    android:title="@string/side_nav_youtube" />
+            </group>
+        </menu>
+    </item>
+<!---->
+    <item android:title="@string/app_name">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/slide_nav_f_q_a"
+                    android:icon="@drawable/ic_info_24"
+                    android:title="@string/side_nav_f_q_a" />
+                <item
+                    android:id="@+id/slide_nav_settings"
+                    android:icon="@drawable/ic_settings_24"
+                    android:title="@string/side_nav_settings" />
+                <item
+                    android:id="@+id/slide_nav_rate"
+                    android:icon="@drawable/ic_rate_24"
+                    android:title="@string/side_nav_rate" />
+                <item
+                    android:id="@+id/slide_nav_verstion"
+                    android:icon="@drawable/ic_vertion_24"
+                    android:title="@string/side_nav_version" />
+            </group>
+        </menu>
+    </item>
+</menu>

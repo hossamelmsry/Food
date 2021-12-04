@@ -1,0 +1,154 @@
+<resources>
+    <string name="app_name">Food</string>
+    <!-- bott_nav   -->
+    <string name="bott_nav_home">Home</string>
+    <string name="bott_nav_cart">Cart</string>
+    <string name="bott_nav_orders">Orders</string>
+    <string name="bott_nav_favorites">Favorites</string>
+    <string name="bott_nav_account">Account</string>
+
+    <!--side_nav-->
+    <string name="account_palance">account_palance</string>
+    <string name="side_nav_profile">profile</string>
+    <string name="side_nav_communicate">communicate</string>
+    <string name="side_nav_registration">registration</string>
+    <string name="side_nav_wallet">wallet</string>
+    <string name="side_nav_refellar">refellars</string>
+    <string name="side_nav_logout">logout</string>
+    <string name="side_nav_facebook">facebook</string>
+    <string name="side_nav_twitter">twitter</string>
+    <string name="side_nav_instagram">instagram</string>
+    <string name="side_nav_tiktok">tiktok</string>
+    <string name="side_nav_youtube">youtube</string>
+    <string name="side_nav_f_q_a">FQA</string>
+    <string name="side_nav_settings">settings</string>
+    <string name="side_nav_rate">rate</string>
+    <string name="side_nav_version">version</string>
+    <string name="side_nav_points">Points</string>
+
+
+    <string name="phone_data">phone_data</string>
+    <string name="disconnected">disconnected</string>
+    <string name="no_internet_connection">no_internet_connection</string>
+    <string name="internet_msg">internet_msg</string>
+    <string name="connect">connect</string>
+    <string name="skip">skip</string>
+    <string name="search">Search .........</string>
+    <string name="a_a_Logout">Logout</string>
+    <string name="a_a_userEmail">userEmail</string>
+    <string name="a_a_your_contact">your_contact</string>
+    <string name="a_a_userPhone">userPhone</string>
+    <string name="your_registration_text">your_registration_text</string>
+    <string name="a_a_userName">userName</string>
+    <string name="a_a_userPassword">userPassword</string>
+    <string name="a_a_userPincode">userPincode</string>
+    <string name="todo">todo</string>
+    <string name="email_notification_settings">email_notification_settings</string>
+    <string name="email_notification">email_notification</string>
+    <string name="contect_number_notification_settings">contect_number_notification_settings</string>
+    <string name="number_notification">number_notification</string>
+    <string name="language_settings">language_settings</string>
+    <string name="place_settings">place_settings</string>
+    <string name="registration">registration</string>
+
+    <string-array name="languageSpinner">
+        <item>English</item>
+        <item>Arabic</item>
+    </string-array>
+    <string-array name="placeSpinner">
+        <item>Alexandria</item>
+    </string-array>
+
+    <!--************************-->
+    <!--   activity_on_board    -->
+    <!--************************-->
+    <!--    title-->
+    <string name="first_slide_title">@string/app_name</string>
+    <string name="second_slide_title">second_slide_title</string>
+    <string name="third_slide_title">EARNING</string>
+    <string name="fourth_slide_title">NOTIFICATIONS</string>
+    <!--    Description-->
+    <string name="first_slide_descrition">Delicious Food Happy Times</string>
+    <string name="second_slide_descrition">second_slide_descrition</string>
+    <string name="third_slide_descrition">Tell Your Friends About Us To Earn More Points</string>
+    <string name="fourth_slide_descrition">Stay Updated With Our Latest Offers.</string>
+    <!--    button-->
+    <string name="skip_btn">skip_btn</string>
+    <string name="next_btn">next_btn</string>
+    <string name="let_get_strated">let get strated</string>
+    <string name="login">login</string>
+    <!--************************-->
+    <!--   activity_login       -->
+    <!--************************-->
+    <string name="a_l_log_in">Log \nin</string>
+    <string name="a_l_login">login</string>
+    <string name="a_l_forgotPassword">Forget Password</string>
+    <string name="a_l_inputPassword">password</string>
+    <string name="a_l_signup">signup</string>
+    <string name="a_l_inputPhone">PhoneNumber</string>
+    <string name="phone_number_incorrect">Phone number Incorrect</string>
+    <string name="welcome_again">welcome again</string>
+    <string name="username_or_password_is_not_correct">username or password is not correct</string>
+    <string name="username_not_exists">username not exists</string>
+    <!--************************-->
+    <!--   activity_signup      -->
+    <!--************************-->
+    <string name="create_account">create \naccount</string>
+    <string name="re_password">re password</string>
+    <string name="email_address">Email Address</string>
+    <string name="_500_points">مبروك تم اضافة 500 نقطة اضافية في محفظتك</string>
+    <string name="empty">empty</string>
+    <string name="there_is_no_data">There is no data</string>
+    <string name="sorry_this_product_is_not_in_the_menu">Sorry ! This product is not in the menu</string>
+    <string name="signup">Signup</string>
+    <string name="submit">Submit</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="verification_title">Vrification</string>
+    <string name="verification_msg">verification msg</string>
+    <string name="something_wrong">something wrong ! <u><b>Resend</b></u></string>
+    <string name="verify">verify</string>
+    <string name="back">Back</string>
+    <string name="make_order">Make Order</string>
+    <string name="confirm_this_list">Confirm This List</string>
+    <string name="resend">Resend</string>
+    <string name="share_to">share to :</string>
+    <string name="quantity">Quantity</string>
+    <string name="set_pin_code_first_time">put \"000000\" if this your first time</string>
+    <string name="wallet_title_hestory">\"The archive needs to be connected with Internet to be able to show your orders \"</string>
+    <string name="a_s_inputUserName">userName</string>
+    <!--************************-->
+    <!--   VerifyOTPActivity     -->
+    <!--************************-->
+    <string name="co_nde">co\nde</string>
+    <!--************************-->
+    <!--   SupportPhoneActivity     -->
+    <!--************************-->
+    <string name="enter_pincode">enter Pincode</string>
+    <string name="Empty">Empty</string>
+    <string name="number_6">6 numbers</string>
+    <string name="incorrect_pinecode_please_connect_us">incorrect pinecode please connect us</string>
+    <string name="not_equal">not equal</string>
+    <string name="too_weak">too weak</string>
+    <string name="please_login_first">please login first</string>
+    <!--************************-->
+    <!--      refellar       -->
+    <string name="my_Refellar">My Refellar</string>
+    <string name="more_and_more">More and more money when your friends make orders .</string>
+    <string name="your_code">Your Code :</string>
+    <string name="egp">EGP :14.55</string>
+    <string name="your_link_is">Your Link :</string>
+    <string name="total_earning">Total Earning</string>
+    <string name="your_balance_in_the_wallet">your balance is</string>
+    <string name="more_money">More money ? invite Your friends .</string>
+    <string name="history">history</string>
+    <string name="daily_points"><u>Daily Points :    </u></string>
+    <string name="food_promo_wating">There are 10 Food Promo Wating</string>
+    <string name="please_register_frist">من فضلك قم بالتسجيل اولا</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--      refellar       -->
+    <!--************************-->
+
+</resources>
