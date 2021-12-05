@@ -54,40 +54,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@drawable/ic_photo_24" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/space_15dp"
-                android:background="@drawable/bg_purple_700_corner"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <ImageView
-                    android:id="@+id/a_p_d_addQuantity"
-                    android:layout_width="@dimen/space_40dp"
-                    android:layout_height="@dimen/space_40dp"
-                    android:padding="@dimen/space_10dp"
-                    android:src="@drawable/ic_add_white" />
-
-                <TextView
-                    android:id="@+id/a_p_d_quantityNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/space_10dp"
-                    android:text="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
-
-                <ImageView
-                    android:id="@+id/a_p_d_subQuantity"
-                    android:layout_width="@dimen/space_40dp"
-                    android:layout_height="@dimen/space_40dp"
-                    android:padding="@dimen/space_10dp"
-                    android:src="@drawable/ic_sub_24" />
-            </LinearLayout>
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
@@ -95,7 +61,50 @@
                 android:background="#42333333"
                 app:layout_constraintBottom_toBottomOf="@id/a_p_d_productImage"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/a_p_d_quantityNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_10dp"
+                    android:text="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/purple_700"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/linearLayout3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/linearLayout3" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <ImageView
+                        android:id="@+id/a_p_d_subQuantity"
+                        android:layout_width="@dimen/space_40dp"
+                        android:layout_height="@dimen/space_40dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/bg_purple_700_corner"
+                        android:padding="@dimen/space_10dp"
+                        android:src="@drawable/ic_sub_24" />
+
+                    <ImageView
+                        android:id="@+id/a_p_d_addQuantity"
+                        android:layout_width="@dimen/space_40dp"
+                        android:layout_height="@dimen/space_40dp"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/bg_purple_700_corner"
+                        android:padding="@dimen/space_10dp"
+                        android:src="@drawable/ic_add_white" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/a_p_d_productName"
