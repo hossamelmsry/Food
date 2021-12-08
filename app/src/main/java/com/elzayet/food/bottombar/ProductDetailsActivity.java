@@ -1,5 +1,6 @@
 package com.elzayet.food.bottombar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,34 +12,46 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.elzayet.food.CartModel;
 import com.elzayet.food.FavoriteModel;
+import com.elzayet.food.ProductModel;
 import com.elzayet.food.R;
 import com.elzayet.food.ShareModel;
+import com.elzayet.food.UserModel;
 import com.elzayet.food.sidebar.registration.LoginActivity;
 import com.elzayet.food.sidebar.registration.RegistrationActivity;
 import com.elzayet.food.sidebar.registration.SignupActivity;
+import com.elzayet.food.tools.Session;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class ProductDetailsActivity extends AppCompatActivity {
-    // database
+    //database initialization
     private final DatabaseReference FAVORITES_DB= FirebaseDatabase.getInstance().getReference("FAVORITES");
     private final DatabaseReference SHARE_DB    = FirebaseDatabase.getInstance().getReference("SHARE");
     private final DatabaseReference CARTS_DB    = FirebaseDatabase.getInstance().getReference("CARTS");
-    //xml
+    //xml initialization
     private ImageView a_p_d_productImage;
-    private TextView a_p_d_productName ,a_p_d_productPrice, a_p_d_quantityNumber;
-    private Button a_p_d_buyProduct ;
-    //product Details
-    private String productId,productImage,productName,productPrice ;
-    private int quantity = 1;
+    private TextView a_p_d_productName,a_p_d_quantityNumber,a_p_d_totalPrice;
+    private CheckBox a_p_d_topping1,a_p_d_topping2,a_p_d_topping3;
+    private Button a_p_d_buyProduct;
+    private MaterialButtonToggleGroup a_p_d_toggleSize;
+    //product Details initialization
+    private String productId,productImage,productName,smallSize,mediumSize,largeSize;
+    //cart initialization
+    private String topping,totalPrice="0" ,productQuantity;
+    private int quantity;
     //user account
     String phoneNumber ;
 
@@ -46,95 +59,128 @@ public class ProductDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
-
         //intent initialization
-        productId     = getIntent().getStringExtra("productId");
-        productImage  = getIntent().getStringExtra("productImage");
-        productName   = getIntent().getStringExtra("productName");
-        productPrice  = getIntent().getStringExtra("productPrice");
+        productId      = getIntent().getStringExtra("productId");
+        productQuantity=getIntent().getStringExtra("productQuantity");
+        if(productQuantity != null){ quantity = Integer.parseInt(productQuantity); }
+        else{ quantity = 1; }
         //user account
         SharedPreferences pref = getSharedPreferences("ACCOUNT", MODE_PRIVATE);
         phoneNumber = pref.getString("phoneNumber", "NOTHING");
         //xml initialization
         a_p_d_productImage = findViewById(R.id.a_p_d_productImage);
         a_p_d_productName  = findViewById(R.id.a_p_d_productName);
-        a_p_d_productPrice = findViewById(R.id.a_p_d_productPrice);
-        a_p_d_quantityNumber= findViewById(R.id.a_p_d_quantityNumber);
+        a_p_d_quantityNumber=findViewById(R.id.a_p_d_quantityNumber);
+        a_p_d_totalPrice   = findViewById(R.id.a_p_d_totalPrice);
+        a_p_d_toggleSize   = findViewById(R.id.a_p_d_toggleSize);
         a_p_d_buyProduct   = findViewById(R.id.a_p_d_buyProduct);
-
-        Picasso.get().load(productImage).placeholder(R.drawable.ic_photo_24).error(R.drawable.ic_photo_24).into(a_p_d_productImage);
-        a_p_d_productName.setText(productName);
-        a_p_d_productPrice.setText(productPrice + " " + Integer.parseInt(productPrice) * 100);
-
+        a_p_d_topping1     = findViewById(R.id.a_p_d_topping1);
+        a_p_d_topping2     = findViewById(R.id.a_p_d_topping2);
+        a_p_d_topping3     = findViewById(R.id.a_p_d_topping3);
+        //
         findViewById(R.id.a_p_d_back).setOnClickListener(v -> onBackPressed());
         findViewById(R.id.a_p_d_addQuantity).setOnClickListener(v -> addQuantitySystem());
         findViewById(R.id.a_p_d_subQuantity).setOnClickListener(v -> subQuantitySystem());
         findViewById(R.id.a_p_d_addToCart).setOnClickListener(v -> addTo(productId,"CAETS"));
         findViewById(R.id.a_p_d_share).setOnClickListener(v -> addTo(productId,"SHARE"));
         findViewById(R.id.a_p_d_favorite).setOnClickListener(v -> addTo(productId,"FAVORITES"));
-
-        MaterialButtonToggleGroup toggleButton = findViewById(R.id.toggleButton);
-        toggleButton.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-                    if (isChecked) {
-                        switch (checkedId){
-                            case R.id.btnAndroid:
-                                Toast.makeText(getBaseContext(), "btnAndroid", Toast.LENGTH_SHORT).show();
-                            break;
-
-                            case R.id.btnFlutter:
-                                Toast.makeText(getBaseContext(), "btnFlutter", Toast.LENGTH_SHORT).show();
-                                break;
-
-                            case R.id.btnWeb:
-                                Toast.makeText(getBaseContext(), "btnWeb", Toast.LENGTH_SHORT).show();
-                                break;
-                        }
-                    }else{
-                        Toast.makeText(getBaseContext(), "nooooooooo", Toast.LENGTH_SHORT).show();
-                    }
-        });
-
-
-
-//        toggleButton.addOnButtonCheckedListener { toggleButtonGroup, checkedId, isChecked ->
-//
-//            if (isChecked) {
-//                when (checkedId) {
-//
-//                    R.id.btnFlutter -> showToast("It's a Butterfly thing.")
-//                    R.id.btnWeb -> showToast("You still exist?")
-//                }
-//            } else {
-//
-//                    showToast("Nothing Selected")
-//                }
-//            }
-//        }
+        //
 
     }
 
-    /*
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //
+        FirebaseDatabase.getInstance().getReference("PRODUCTS").child(productId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            ProductModel productModel = snapshot.getValue(ProductModel.class);
+                            productName = productModel.getProductName();
+                            productImage= productModel.getProductImage();
+                            smallSize   = productModel.getSmallSize();
+                            mediumSize  = productModel.getMediumSize();
+                            largeSize   = productModel.getLargeSize();
+                            Picasso.get().load(productImage).placeholder(R.drawable.ic_photo_24).error(R.drawable.ic_photo_24).into(a_p_d_productImage);
+                            a_p_d_productName.setText(productName);
+                            a_p_d_toggleSize.check(R.id.a_p_d_smallSize);
+                            int x = Integer.parseInt(smallSize)+Integer.parseInt(totalPrice);
+                            totalPrice = Integer.toString(x);
+                            a_p_d_totalPrice.setText("Totla Price : "+totalPrice);
+                            Toast.makeText(getBaseContext(), "small size " + smallSize, Toast.LENGTH_SHORT).show();
+                        } else {  Toast.makeText(getBaseContext(), "not exists", Toast.LENGTH_SHORT).show();  }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {   Toast.makeText(getBaseContext(), error.getCode(), Toast.LENGTH_SHORT).show();   }
+                });
 
-     */
+        a_p_d_toggleSize.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (isChecked) {
+                int x = 0 ;
+                switch (checkedId){
+                    case R.id.a_p_d_smallSize:
+                        x = Integer.parseInt(smallSize)+Integer.parseInt(totalPrice);
+                        totalPrice = Integer.toString(x);
+                        a_p_d_totalPrice.setText("Totla Price : "+totalPrice);
+                        break;
+                    case R.id.a_p_d_mediumSize:
+                        x = Integer.parseInt(mediumSize)+Integer.parseInt(totalPrice);
+                        totalPrice = Integer.toString(x);
+                        a_p_d_totalPrice.setText("Totla Price : "+totalPrice);
+                        break;
+                    case R.id.a_p_d_largeSize:
+                        x = Integer.parseInt(largeSize)+Integer.parseInt(totalPrice);
+                        totalPrice = Integer.toString(x);
+                        a_p_d_totalPrice.setText("Totla Price : "+totalPrice);
+                        break;
+                }
+            }
+        });
+
+        if(a_p_d_topping1.isChecked()){
+            int x = Integer.parseInt(totalPrice)+2;
+            totalPrice = Integer.toString(x);
+            a_p_d_totalPrice.setText(totalPrice);
+            topping = topping + " tomato ";
+        }
+        if(a_p_d_topping2.isChecked()){
+            int x = Integer.parseInt(totalPrice)+2;
+            totalPrice = Integer.toString(x);
+            a_p_d_totalPrice.setText(totalPrice);
+            topping = topping + "+ catchap ";
+        }
+        if(a_p_d_topping3.isChecked()){
+            int x = Integer.parseInt(totalPrice)+2;
+            totalPrice = Integer.toString(x);
+            a_p_d_totalPrice.setText(totalPrice);
+            topping = topping + "+ meat ";
+        }
+
+    }
 
     private void subQuantitySystem() {
-        if(quantity == 1){
-            quantity =1 ;
+        if (quantity == 1) {
             a_p_d_quantityNumber.setText(Integer.toString(quantity));
+            productQuantity = Integer.toString(quantity);
         }
         else if (quantity <= 10){
             quantity -- ;
             a_p_d_quantityNumber.setText(Integer.toString(quantity));
+            productQuantity = Integer.toString(quantity);
         }
     }
 
     private void addQuantitySystem() {
-        if (quantity >= 10){
-            quantity =10 ;
+        if (quantity >= 10) {
             a_p_d_quantityNumber.setText(Integer.toString(quantity));
-        }else {
+            productQuantity = Integer.toString(quantity);
+        }
+        else {
             quantity ++ ;
             a_p_d_quantityNumber.setText(Integer.toString(quantity));
+            productQuantity = Integer.toString(quantity);
         }
     }
 
@@ -142,13 +188,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
         if(!phoneNumber.equals("NOTHING")) {
             if (child.equals("FAVORITES")) {
                 FAVORITES_DB.child(phoneNumber).child(productId).setValue(new FavoriteModel(productId));
-                Toast.makeText(getBaseContext(), "Add To Favorites Successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT).show();
             } else if(child.equals("SHARE")){
                 SHARE_DB.child(phoneNumber).child(productId).setValue(new ShareModel(productId));
                 Toast.makeText(getBaseContext(), "Please Wait To Loading", Toast.LENGTH_SHORT).show();
             }else{
-                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,"1"));
-                Toast.makeText(getBaseContext(), "Add To Favorites Successfully", Toast.LENGTH_SHORT).show();
+                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,"1",topping,totalPrice));
+                Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT).show();
             }
         }else{
             AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());

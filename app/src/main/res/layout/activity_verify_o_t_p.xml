@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_15dp"
-            android:background="@drawable/bg_gray_corner"
+            android:background="@drawable/bg_white"
             android:orientation="vertical"
             android:padding="@dimen/space_15dp"
             android:paddingBottom="@dimen/space_15dp">
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/verification_title"
-                android:textColor="@android:color/white"
+                android:textColor="@color/purple_700"
                 android:textStyle="bold" />
 
             <TextView
@@ -55,24 +55,23 @@
                 android:layout_marginTop="@dimen/space_20dp"
                 android:layout_marginBottom="@dimen/space_15dp"
                 android:text="@string/verification_msg"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/purple_700" />
 
             <EditText
                 android:id="@+id/codeEt"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50dp"
-                android:background="@drawable/bg_white_corner"
                 android:gravity="center"
                 android:hint="000000"
                 android:inputType="number" />
 
             <TextView
                 android:id="@+id/resentCode"
+                style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/something_wrong"
-                android:textColor="@android:color/white"
-                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:textColor="@color/purple_700"
                 android:textSize="16sp" />
 
             <Button
@@ -82,7 +81,7 @@
                 android:layout_marginStart="@dimen/space_30dp"
                 android:layout_marginTop="@dimen/space_15dp"
                 android:layout_marginEnd="@dimen/space_30dp"
-                android:background="@drawable/bg_purple_500_corner"
+                android:background="@drawable/bg_purple_500"
                 android:text="@string/verify"
                 android:textColor="@color/white" />
         </LinearLayout>

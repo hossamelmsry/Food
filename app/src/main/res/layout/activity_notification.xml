@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".topbar.notification.NotificationActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/a_n_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/a_n_warningMsg"
         android:layout_width="wrap_content"
@@ -19,13 +30,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/a_n_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="vertical"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/a_n_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

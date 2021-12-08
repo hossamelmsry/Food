@@ -16,6 +16,7 @@
             android:id="@+id/c_c_i_menuImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="@dimen/space_5dp"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
     </androidx.cardview.widget.CardView>
 

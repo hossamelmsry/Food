@@ -57,7 +57,7 @@ public class SearchActivity extends AppCompatActivity {
         String productSearch= a_s_searchInput.getText().toString().trim();
         if(!TextUtils.isEmpty(productSearch)) {
             a_s_searchInput.setError(null);
-            result(productSearch);
+//            result(productSearch);
         }else{
             a_s_searchInput.setError(getString(R.string.search));
             a_s_searchInput.requestFocus();
@@ -75,8 +75,8 @@ public class SearchActivity extends AppCompatActivity {
                     protected void onBindViewHolder(@NonNull productsAdapter holder, int position, @NonNull ProductModel model) {
                         String productImage = model.getProductImage();
                         String productName = model.getProductName();
-                        String productPrice = model.getProductPrice();
-                        holder.showProduct(productImage,productName,productPrice);
+//                        String productPrice = model.getProductPrice();
+                        holder.showProduct(productImage,productName,"productPrice");
 
                     }
                     @NonNull
@@ -105,13 +105,13 @@ public class SearchActivity extends AppCompatActivity {
             c_p_i_share = itemView.findViewById(R.id.c_p_i_share);
             ImageView c_p_i_productImage= itemView.findViewById(R.id.c_p_i_productImage);
             TextView c_p_i_productName  = itemView.findViewById(R.id.c_p_i_productName);
-            TextView c_p_i_productPrice = itemView.findViewById(R.id.c_p_i_productPrice);
-            TextView c_p_i_productPoints= itemView.findViewById(R.id.c_p_i_productPoints);
+//            TextView c_p_i_productPrice = itemView.findViewById(R.id.c_p_i_productPrice);
+//            TextView c_p_i_productPoints= itemView.findViewById(R.id.c_p_i_productPoints);
 
             Picasso.get().load(productImage).placeholder(R.drawable.ic_photo_24).error(R.drawable.ic_photo_24).into(c_p_i_productImage);
             c_p_i_productName.setText(productName);
-            c_p_i_productPrice.setText(productPrice+" جنيه ");
-            c_p_i_productPoints.setText(Integer.toString(Integer.parseInt(productPrice) * 100));
+//            c_p_i_productPrice.setText(productPrice+" جنيه ");
+//            c_p_i_productPoints.setText(Integer.toString(Integer.parseInt(productPrice) * 100));
         }
 
     }

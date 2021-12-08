@@ -39,7 +39,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
     DatabaseReference ACCOUNTS_DB = FirebaseDatabase.getInstance().getReference("ACCOUNTS");
     DatabaseReference ARCHIVE_DB = FirebaseDatabase.getInstance().getReference("ARCHIVE");
     DatabaseReference WALLETS_DB = FirebaseDatabase.getInstance().getReference("WALLETS");
-    DatabaseReference NOTIFICATION_DB = FirebaseDatabase.getInstance().getReference("NOTIFICATION");
+    DatabaseReference NOTIFICATION_DB = FirebaseDatabase.getInstance().getReference("NOTIFICATIONS");
 
 
     private ActivityVerifyOTPBinding binding ;
@@ -152,7 +152,7 @@ public class VerifyOTPActivity extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), "Signup Successfuly", Toast.LENGTH_SHORT).show();
                         ACCOUNTS_DB.child(phoneNumber).setValue(new UserModel(phoneNumber,userName,userPassword,"000000",userRefellar,signupDate));
                         ARCHIVE_DB.child(phoneNumber).child("1").setValue(new ArchiveModel("1","تسجيل في التطبيق = 500 نقطة في محفظتك",signupDate,signupTime));
-                        NOTIFICATION_DB.child(phoneNumber).child("1").setValue(new NotificationModel("1","تسجيل في التطبيق = 500 نقطة في محفظتك",signupDate,signupTime));
+                        NOTIFICATION_DB.child(phoneNumber).child("1").setValue(new NotificationModel("1","تسجيل في التطبيق = 500 نقطة في محفظتك",signupDate,signupTime,"application"));
                         WALLETS_DB.child(phoneNumber).setValue(new PointsModel("500"));
                         Session.updateUserAccount(VerifyOTPActivity.this, phoneNumber, userName,userPassword,"000000",userRefellar);
                         NotificationApp.addNotificationWithAction(VerifyOTPActivity.this, "مبروك تم اضافة 500 في محفظتك, ");

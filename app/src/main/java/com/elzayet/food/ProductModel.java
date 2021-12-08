@@ -4,18 +4,9 @@ import androidx.annotation.Keep;
 
 @Keep
 public class ProductModel {
-    private String menuName,  productId,  productImage,  productName,  productDescription,  productPrice ;
+    private String menuName,productId,productImage,productName,productDescription,smallSize,mediumSize,largeSize;
 
     public ProductModel() { }
-
-    public ProductModel(String menuName,String productId,String productImage,String productName,String productDescription,String productPrice) {
-        this.menuName = menuName;
-        this.productId = productId;
-        this.productImage = productImage;
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.productPrice = productPrice;
-    }
 
     public String getMenuName() {
         return menuName;
@@ -37,7 +28,9 @@ public class ProductModel {
         return productDescription;
     }
 
-    public String getProductPrice() {
-        return productPrice;
-    }
+    public String getSmallSize() { return smallSize; }
+
+    public String getMediumSize() { return mediumSize; }
+
+    public String getLargeSize() { return largeSize; }
 }

@@ -25,7 +25,8 @@
         <activity
             android:name=".topbar.notification.NotificationActivity"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".topbar.search.SearchActivity"
             android:exported="true"

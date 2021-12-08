@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/space_5dp"
     tools:context=".bottombar.CartFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,12 +24,50 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/f_c_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/f_c_ll_orderDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/f_c_ll_orderDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_15dp"
+            android:layout_marginEnd="@dimen/space_15dp"
+            android:layout_marginBottom="@dimen/space_10dp"
+            android:background="@drawable/bg_white"
+            android:elevation="@dimen/space_5dp"
+            android:orientation="vertical"
+            android:padding="@dimen/space_5dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/f_c_o_d_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="order number : 54121233zas14" />
+
+            <TextView
+                android:id="@+id/f_c_o_d_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="total price : 55 $" />
+
+            <Button
+                android:id="@+id/f_c_o_d_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_20dp"
+                android:layout_marginEnd="@dimen/space_20dp"
+                android:text="Confirm" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -33,7 +33,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="@dimen/space_50dp"
             android:layout_marginEnd="@dimen/space_50dp"
-            android:background="@drawable/bg_purple_500_corner"
+            android:background="@drawable/bg_purple_500"
             android:gravity="center"
             android:text="@string/let_get_strated"
             android:textColor="@color/white"

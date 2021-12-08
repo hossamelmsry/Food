@@ -51,28 +51,9 @@
             android:id="@+id/c_p_i_productName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/c_p_i_productPrice"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/c_p_i_productPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/c_p_i_productPoints"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/c_p_i_productPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/ic_points"
-            android:drawablePadding="@dimen/space_5dp"
-            android:textColor="@color/white"
-            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

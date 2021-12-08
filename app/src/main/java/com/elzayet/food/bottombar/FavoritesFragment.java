@@ -18,6 +18,7 @@ import com.elzayet.food.CartModel;
 import com.elzayet.food.FavoriteModel;
 import com.elzayet.food.ProductModel;
 import com.elzayet.food.R;
+import com.elzayet.food.UserModel;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +30,7 @@ import com.squareup.picasso.Picasso;
 
 public class FavoritesFragment extends Fragment {
     //database
+    private final DatabaseReference PRODUCTS_DB = FirebaseDatabase.getInstance().getReference("PRODUCTS");
     private final DatabaseReference FAVORITES_DB= FirebaseDatabase.getInstance().getReference("FAVORITES");
     private final DatabaseReference CARTS_DB    = FirebaseDatabase.getInstance().getReference("CARTS");
 
@@ -61,14 +63,30 @@ public class FavoritesFragment extends Fragment {
                 new FirebaseRecyclerAdapter<FavoriteModel, FavoritesFragmentAdapter>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull FavoritesFragmentAdapter holder, int position, @NonNull FavoriteModel model) {
-                        holder.showCart(model.getProductId());
-                        holder.c_f_i_addToCart.setOnClickListener(v -> {
-                            CARTS_DB.child(phoneNumber).child(model.getProductId()).setValue(new CartModel(model.getProductId(),"1"));
-                            Toast.makeText(getContext(), "Add To Favorites Successfully", Toast.LENGTH_SHORT).show();
-                        });
+                        String productId = model.getProductId();
+                        holder.showCart(productId);
 
+                        PRODUCTS_DB.child(productId).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()){
+                                    ProductModel productModel = snapshot.getValue(ProductModel.class);
+                                    String totlaPrice = productModel.getSmallSize();
+                                    holder.c_f_i_addToCart.setOnClickListener(v -> {
+                                        CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,"1",totlaPrice));
+                                        Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+                                    });
+                                }else {
+                                    Toast.makeText(getContext(), "sorry ,this product not avalible", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getContext(), error.getCode(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         holder.c_f_i_remove.setOnClickListener(v -> {
-                            CARTS_DB.child(phoneNumber).child(model.getProductId()).removeValue();
+                            FAVORITES_DB.child(phoneNumber).child(productId).removeValue();
                             Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
                         });
 
@@ -85,9 +103,6 @@ public class FavoritesFragment extends Fragment {
     }
 
 
-
-
-
     ///////////////////////////////////
     ///////CartFragmentAdapter/////////
     ///////////////////////////////////
@@ -97,7 +112,8 @@ public class FavoritesFragment extends Fragment {
             super(itemView);
         }
 
-        public TextView c_f_i_addToCart,c_f_i_remove;
+        public TextView c_f_i_addToCart;
+        public ImageView c_f_i_remove;
         public void showCart(String productId) {
             ImageView c_f_i_productImage= itemView.findViewById(R.id.c_f_i_productImage);
             TextView c_f_i_productName  = itemView.findViewById(R.id.c_f_i_productName);
@@ -113,7 +129,7 @@ public class FavoritesFragment extends Fragment {
                                 ProductModel productModel = snapshot.getValue(ProductModel.class);
                                 Picasso.get().load(productModel.getProductImage()).placeholder(R.drawable.ic_photo_24).error(R.drawable.ic_photo_24).into(c_f_i_productImage);
                                 c_f_i_productName.setText(productModel.getProductName());
-                                c_f_i_productPrice.setText(productModel.getProductPrice()+" جنيه ");
+//                                c_f_i_productPrice.setText(productModel.getProductPrice()+" جنيه ");
                             } else { Toast.makeText(itemView.getContext(), "لا يوجد هذا المنتج في الوقت الحالي", Toast.LENGTH_SHORT).show(); }
                         }
                         @Override

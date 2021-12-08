@@ -46,14 +46,28 @@
             app:layout_constraintStart_toStartOf="@id/c_f_i_productImage"
             app:layout_constraintTop_toBottomOf="@id/c_f_i_productImage">
 
+            <ImageView
+                android:id="@+id/c_f_i_remove"
+                android:layout_width="@dimen/space_100dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_purple_700_outline"
+                android:padding="@dimen/space_5dp"
+                app:srcCompat="@drawable/ic_delete_gray" />
+
             <TextView
                 android:id="@+id/c_f_i_addToCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_purple_700_corner"
+                android:layout_margin="3dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/bg_purple_700_outline"
                 android:drawablePadding="@dimen/space_10dp"
+                android:padding="@dimen/space_5dp"
                 android:text="add to cart"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/purple_700" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

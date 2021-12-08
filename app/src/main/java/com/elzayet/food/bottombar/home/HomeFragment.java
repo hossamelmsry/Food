@@ -66,7 +66,6 @@ public class HomeFragment extends Fragment {
     private SliderView f_h_slider ;
     //body
     private RecyclerView f_h_homeContainerRecycler ,a_p_categoryRecycler;
-
     //user account
     private String phoneNumber ;
 
@@ -87,13 +86,11 @@ public class HomeFragment extends Fragment {
         a_p_categoryRecycler = view.findViewById(R.id.a_p_categoryRecycler);
         a_p_categoryRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         a_p_categoryRecycler.setHasFixedSize(true);
-
-        showCategory();
+        showMenus();
         //products
         f_h_homeContainerRecycler = view.findViewById(R.id.f_h_homeContainerRecycler);
         f_h_homeContainerRecycler.setLayoutManager(new GridLayoutManager(getContext(),2));
         f_h_homeContainerRecycler.setHasFixedSize(true);
-
         showProducts();
         return view;
     }
@@ -116,7 +113,7 @@ public class HomeFragment extends Fragment {
         }).addOnFailureListener(e ->  Toast.makeText(getContext(), "Fail to load slider data..", Toast.LENGTH_SHORT).show());
     }
     //Menus
-    private void showCategory() {
+    private void showMenus() {
         FirebaseRecyclerOptions<MenuModel> options =
                 new FirebaseRecyclerOptions.Builder<MenuModel>().setQuery(MENU_DB , MenuModel.class).setLifecycleOwner( this).build();
         FirebaseRecyclerAdapter<MenuModel, HomeFragmentAdapter> adapter =
@@ -148,24 +145,20 @@ public class HomeFragment extends Fragment {
                 new FirebaseRecyclerAdapter<ProductModel, HomeFragmentAdapter>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull HomeFragmentAdapter holder, int position, @NonNull ProductModel model) {
-                        String productId     = model.getProductId();
-                        String productImage  = model.getProductImage();
-                        String productName   = model.getProductName();
-                        String productPrice  = model.getProductPrice();
-                        holder.showProduct(productImage,productName,productPrice);
+                        String productId    = model.getProductId();
+                        String productImage = model.getProductImage();
+                        String productName  = model.getProductName();
+                        String smallSize    = model.getSmallSize();
+                        holder.showProduct(productImage,productName);
                         holder.itemView.setOnClickListener(v -> {
                             Intent intent = new Intent(getContext() ,ProductDetailsActivity.class);
                             intent.putExtra("productId",productId);
-                            intent.putExtra("productImage",productImage);
-                            intent.putExtra("productName",productName);
-                            intent.putExtra("productPrice",productPrice);
+                            intent.putExtra("productQuantity","1");
                             startActivity(intent);
                         });
-                        holder.c_p_i_addToCart.setOnClickListener(v -> addTo(productId,"CARTS"));
-
-                        holder.c_p_i_favorite.setOnClickListener(v -> addTo(productId,"FAVORITES"));
-
-                        holder.c_p_i_share.setOnClickListener(v -> addTo(productId,"SHARE"));
+                        holder.c_p_i_addToCart.setOnClickListener(v -> addTo(productId,"CARTS",smallSize));
+                        holder.c_p_i_favorite.setOnClickListener(v -> addTo(productId,"FAVORITES",smallSize));
+                        holder.c_p_i_share.setOnClickListener(v -> addTo(productId,"SHARE",smallSize));
                     }
                     @NonNull
                     @Override
@@ -178,7 +171,7 @@ public class HomeFragment extends Fragment {
         adapter.startListening();
     }
 
-    private void addTo(String productId,String child) {
+    private void addTo(String productId,String child,String totalPrice) {
         if(!phoneNumber.equals("NOTHING")) {
             if (child.equals("FAVORITES")) {
                 FAVORITES_DB.child(phoneNumber).child(productId).setValue(new FavoriteModel(productId));
@@ -187,8 +180,8 @@ public class HomeFragment extends Fragment {
                 SHARE_DB.child(phoneNumber).child(productId).setValue(new ShareModel(productId));
                 Toast.makeText(getContext(), "Please Wait To Loading", Toast.LENGTH_SHORT).show();
             }else{
-                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,"1"));
-                Toast.makeText(getContext(), "Add To Favorites Successfully", Toast.LENGTH_SHORT).show();
+                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,"1",totalPrice));
+                Toast.makeText(getContext(), "Add To Cart Successfully", Toast.LENGTH_SHORT).show();
             }
         }else{
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -210,9 +203,7 @@ public class HomeFragment extends Fragment {
     ///////////////////////////////////
     private static class HomeFragmentAdapter extends RecyclerView.ViewHolder {
 
-        public HomeFragmentAdapter(@NonNull View itemView) {
-            super(itemView);
-        }
+        public HomeFragmentAdapter(@NonNull View itemView) { super(itemView); }
 
         public void showMenu(String menuImage, String menuName) {
             ImageView c_c_i_menuImage = itemView.findViewById(R.id.c_c_i_menuImage);
@@ -222,19 +213,14 @@ public class HomeFragment extends Fragment {
         }
 
         public ImageView c_p_i_favorite ,c_p_i_share,c_p_i_addToCart;
-        public void showProduct(String productImage, String productName, String productPrice) {
+        public void showProduct(String productImage, String productName) {
             c_p_i_addToCart= itemView.findViewById(R.id.c_p_i_addToCart);
             c_p_i_favorite = itemView.findViewById(R.id.c_p_i_favorite);
             c_p_i_share    = itemView.findViewById(R.id.c_p_i_share);
             ImageView c_p_i_productImage= itemView.findViewById(R.id.c_p_i_productImage);
             TextView c_p_i_productName  = itemView.findViewById(R.id.c_p_i_productName);
-            TextView c_p_i_productPrice = itemView.findViewById(R.id.c_p_i_productPrice);
-            TextView c_p_i_productPoints= itemView.findViewById(R.id.c_p_i_productPoints);
-
             Picasso.get().load(productImage).placeholder(R.drawable.ic_photo_24).error(R.drawable.ic_photo_24).into(c_p_i_productImage);
             c_p_i_productName.setText(productName);
-            c_p_i_productPrice.setText(productPrice+" جنيه ");
-            c_p_i_productPoints.setText(Integer.toString(Integer.parseInt(productPrice) * 100));
         }
     }
 
