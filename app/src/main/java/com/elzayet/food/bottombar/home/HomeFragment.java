@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
                 SHARE_DB.child(phoneNumber).child(productId).setValue(new ShareModel(productId));
                 Toast.makeText(getContext(), "Please Wait To Loading", Toast.LENGTH_SHORT).show();
             }else{
-                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,"1",totalPrice));
+//                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,"1",totalPrice));
                 Toast.makeText(getContext(), "Add To Cart Successfully", Toast.LENGTH_SHORT).show();
             }
         }else{

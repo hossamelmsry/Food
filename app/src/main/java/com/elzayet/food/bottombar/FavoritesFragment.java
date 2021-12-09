@@ -73,7 +73,7 @@ public class FavoritesFragment extends Fragment {
                                     ProductModel productModel = snapshot.getValue(ProductModel.class);
                                     String totlaPrice = productModel.getSmallSize();
                                     holder.c_f_i_addToCart.setOnClickListener(v -> {
-                                        CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,"1",totlaPrice));
+                                        CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId));
                                         Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
                                     });
                                 }else {

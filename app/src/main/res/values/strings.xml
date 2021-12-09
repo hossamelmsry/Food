@@ -147,6 +147,7 @@
     <string name="please_register_frist">من فضلك قم بالتسجيل اولا</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="press_to_show_total_price">press to show total price</string>
 
     <!--      refellar       -->
     <!--************************-->

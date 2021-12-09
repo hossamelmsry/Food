@@ -50,8 +50,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
     //product Details initialization
     private String productId,productImage,productName,smallSize,mediumSize,largeSize;
     //cart initialization
-    private String topping,totalPrice="0" ,productQuantity;
-    private int quantity;
+    private String totalPrice ,productQuantity,productSize;
+    private int sizePrice=0,quantity=0;
     //user account
     String phoneNumber ;
 
@@ -84,6 +84,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         findViewById(R.id.a_p_d_addToCart).setOnClickListener(v -> addTo(productId,"CAETS"));
         findViewById(R.id.a_p_d_share).setOnClickListener(v -> addTo(productId,"SHARE"));
         findViewById(R.id.a_p_d_favorite).setOnClickListener(v -> addTo(productId,"FAVORITES"));
+
         //
 
     }
@@ -105,58 +106,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             largeSize   = productModel.getLargeSize();
                             Picasso.get().load(productImage).placeholder(R.drawable.ic_photo_24).error(R.drawable.ic_photo_24).into(a_p_d_productImage);
                             a_p_d_productName.setText(productName);
-                            a_p_d_toggleSize.check(R.id.a_p_d_smallSize);
-                            int x = Integer.parseInt(smallSize)+Integer.parseInt(totalPrice);
-                            totalPrice = Integer.toString(x);
-                            a_p_d_totalPrice.setText("Totla Price : "+totalPrice);
-                            Toast.makeText(getBaseContext(), "small size " + smallSize, Toast.LENGTH_SHORT).show();
+                            sizePrice = Integer.parseInt(smallSize);
                         } else {  Toast.makeText(getBaseContext(), "not exists", Toast.LENGTH_SHORT).show();  }
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {   Toast.makeText(getBaseContext(), error.getCode(), Toast.LENGTH_SHORT).show();   }
                 });
 
-        a_p_d_toggleSize.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (isChecked) {
-                int x = 0 ;
-                switch (checkedId){
-                    case R.id.a_p_d_smallSize:
-                        x = Integer.parseInt(smallSize)+Integer.parseInt(totalPrice);
-                        totalPrice = Integer.toString(x);
-                        a_p_d_totalPrice.setText("Totla Price : "+totalPrice);
-                        break;
-                    case R.id.a_p_d_mediumSize:
-                        x = Integer.parseInt(mediumSize)+Integer.parseInt(totalPrice);
-                        totalPrice = Integer.toString(x);
-                        a_p_d_totalPrice.setText("Totla Price : "+totalPrice);
-                        break;
-                    case R.id.a_p_d_largeSize:
-                        x = Integer.parseInt(largeSize)+Integer.parseInt(totalPrice);
-                        totalPrice = Integer.toString(x);
-                        a_p_d_totalPrice.setText("Totla Price : "+totalPrice);
-                        break;
-                }
-            }
-        });
+        a_p_d_toggleSize.check(R.id.a_p_d_smallSize);
 
-        if(a_p_d_topping1.isChecked()){
-            int x = Integer.parseInt(totalPrice)+2;
-            totalPrice = Integer.toString(x);
-            a_p_d_totalPrice.setText(totalPrice);
-            topping = topping + " tomato ";
-        }
-        if(a_p_d_topping2.isChecked()){
-            int x = Integer.parseInt(totalPrice)+2;
-            totalPrice = Integer.toString(x);
-            a_p_d_totalPrice.setText(totalPrice);
-            topping = topping + "+ catchap ";
-        }
-        if(a_p_d_topping3.isChecked()){
-            int x = Integer.parseInt(totalPrice)+2;
-            totalPrice = Integer.toString(x);
-            a_p_d_totalPrice.setText(totalPrice);
-            topping = topping + "+ meat ";
-        }
 
     }
 
@@ -193,7 +151,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 SHARE_DB.child(phoneNumber).child(productId).setValue(new ShareModel(productId));
                 Toast.makeText(getBaseContext(), "Please Wait To Loading", Toast.LENGTH_SHORT).show();
             }else{
-                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,"1",topping,totalPrice));
+                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,productQuantity,productSize,"topping",totalPrice));
                 Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT).show();
             }
         }else{
@@ -211,5 +169,36 @@ public class ProductDetailsActivity extends AppCompatActivity {
         finish();
     }
 
-
+    public void calculateTotalPrice(View view) {
+        a_p_d_toggleSize.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (isChecked) {
+                switch (checkedId) {
+                    case R.id.a_p_d_smallSize : sizePrice = Integer.parseInt(smallSize);
+                        break;
+                    case R.id.a_p_d_mediumSize: sizePrice = Integer.parseInt(mediumSize);
+                        break;
+                    case R.id.a_p_d_largeSize : sizePrice = Integer.parseInt(largeSize);
+                        break;
+                }
+            }
+        });
+        int topping_ = 0;
+        String topping="";
+        if(a_p_d_topping1.isChecked()){
+            topping_+=2;
+            topping =" tomato ";
+        }
+        if(a_p_d_topping2.isChecked()){
+            topping_+=2;
+            topping = topping + "+ catchap ";
+        }
+        if(a_p_d_topping3.isChecked()){
+            topping_+=2;
+            topping = topping + "+ meat ";
+        }
+        int y = quantity * sizePrice + topping_ ;
+        Toast.makeText(getBaseContext(), ""+y, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), topping, Toast.LENGTH_SHORT).show();
+        productQuantity = Integer.toString(quantity);
+    }
 }
