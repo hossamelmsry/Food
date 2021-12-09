@@ -107,7 +107,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             Picasso.get().load(productImage).placeholder(R.drawable.ic_photo_24).error(R.drawable.ic_photo_24).into(a_p_d_productImage);
                             a_p_d_productName.setText(productName);
                             sizePrice = Integer.parseInt(smallSize);
-                        } else {  Toast.makeText(getBaseContext(), "not exists", Toast.LENGTH_SHORT).show();  }
+                        }else {  Toast.makeText(getBaseContext(), "not exists", Toast.LENGTH_SHORT).show();  }
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {   Toast.makeText(getBaseContext(), error.getCode(), Toast.LENGTH_SHORT).show();   }
