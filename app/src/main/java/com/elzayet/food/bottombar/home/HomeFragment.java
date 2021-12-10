@@ -148,7 +148,6 @@ public class HomeFragment extends Fragment {
                         String productId    = model.getProductId();
                         String productImage = model.getProductImage();
                         String productName  = model.getProductName();
-                        String smallSize    = model.getSmallSize();
                         holder.showProduct(productImage,productName);
                         holder.itemView.setOnClickListener(v -> {
                             Intent intent = new Intent(getContext() ,ProductDetailsActivity.class);
@@ -156,9 +155,9 @@ public class HomeFragment extends Fragment {
                             intent.putExtra("productQuantity","1");
                             startActivity(intent);
                         });
-                        holder.c_p_i_addToCart.setOnClickListener(v -> addTo(productId,"CARTS",smallSize));
-                        holder.c_p_i_favorite.setOnClickListener(v -> addTo(productId,"FAVORITES",smallSize));
-                        holder.c_p_i_share.setOnClickListener(v -> addTo(productId,"SHARE",smallSize));
+                        holder.c_p_i_addToCart.setOnClickListener(v -> addTo(productId,"CARTS"));
+                        holder.c_p_i_favorite.setOnClickListener(v -> addTo(productId,"FAVORITES"));
+                        holder.c_p_i_share.setOnClickListener(v -> addTo(productId,"SHARE"));
                     }
                     @NonNull
                     @Override
@@ -171,7 +170,7 @@ public class HomeFragment extends Fragment {
         adapter.startListening();
     }
 
-    private void addTo(String productId,String child,String totalPrice) {
+    private void addTo(String productId,String child) {
         if(!phoneNumber.equals("NOTHING")) {
             if (child.equals("FAVORITES")) {
                 FAVORITES_DB.child(phoneNumber).child(productId).setValue(new FavoriteModel(productId));

@@ -39,25 +39,30 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class CartFragment extends Fragment {
+    // database initia
     private final DatabaseReference FAVORITES_DB= FirebaseDatabase.getInstance().getReference("FAVORITES");
     private final DatabaseReference CARTS_DB    = FirebaseDatabase.getInstance().getReference("CARTS");
-
-    private TextView f_c_warningMsg,f_c_o_d_id,f_c_o_d_price;
+    // xml initia
     private RecyclerView f_c_recyclerView;
     private LinearLayout f_c_ll_orderDetails;
+    private TextView f_c_warningMsg,f_c_o_d_id,f_c_o_d_price,f_c_o_d_usePromoCode,f_c_o_d_phoneNumber;
     private Button f_c_o_d_confirm;
     //user account
     private String phoneNumber ;
-
+    // order initia
+    private String orderId ,orderPrice;
+    private int price ;
     public CartFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view           = inflater.inflate(R.layout.fragment_cart, container, false);
         f_c_warningMsg      = view.findViewById(R.id.f_c_warningMsg);
+        f_c_ll_orderDetails = view.findViewById(R.id.f_c_ll_orderDetails);
         f_c_o_d_id          = view.findViewById(R.id.f_c_o_d_id);
         f_c_o_d_price       = view.findViewById(R.id.f_c_o_d_price);
-        f_c_ll_orderDetails = view.findViewById(R.id.f_c_ll_orderDetails);
+        f_c_o_d_phoneNumber = view.findViewById(R.id.f_c_o_d_phoneNumber);
+        f_c_o_d_usePromoCode= view.findViewById(R.id.f_c_o_d_usePromoCode);
         f_c_o_d_confirm     = view.findViewById(R.id.f_c_o_d_confirm);
         f_c_recyclerView    = view.findViewById(R.id.f_c_recyclerView);
         f_c_recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -71,25 +76,28 @@ public class CartFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        f_c_o_d_phoneNumber.setText("phoneNumber:"+phoneNumber);
         CARTS_DB.child(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
+                    orderId = CARTS_DB.child(phoneNumber).push().getKey();
                     f_c_ll_orderDetails.setVisibility(View.VISIBLE);
-                    f_c_o_d_id.setText(CARTS_DB.child(phoneNumber).push().getKey());
+                    f_c_o_d_id.setText("Order Num:"+orderId);
+                }else{
+                    f_c_ll_orderDetails.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getContext(), error.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
+        price = 0;
         showCart();
 
     }
 
-    private int quantity;
     //Cart
     private void showCart() {
         FirebaseRecyclerOptions<CartModel> options =
@@ -100,30 +108,19 @@ public class CartFragment extends Fragment {
                     protected void onBindViewHolder(@NonNull CartFragmentAdapter holder, int position, @NonNull CartModel model) {
                         String productId       = model.getProductId();
                         String productQuantity = model.getProductQuantity();
-                        holder.showCart(productId,productQuantity);
+                        String productSize     = model.getProductSize();
+                        String orderTopping    = model.getOrderTopping();
+                        String orderPrice      = model.getOrderPrice();
+                        price += Integer.parseInt(orderPrice);
+                        holder.showCart(productId,productQuantity,productSize,orderTopping,orderPrice);
                         holder.itemView.setOnClickListener(v -> {
                             Intent intent = new Intent(getContext() , ProductDetailsActivity.class);
                             intent.putExtra("productId"      ,productId);
                             intent.putExtra("productQuantity",productQuantity);
+                            intent.putExtra("productSize"    ,productSize);
+                            intent.putExtra("orderTopping"   ,orderTopping);
+                            intent.putExtra("orderPrice"     ,orderPrice);
                             startActivity(intent);
-                        });
-                        quantity = Integer.parseInt(productQuantity);
-                        holder.c_c_i_addQuantity.setOnClickListener(v -> {
-                            if (quantity >= 10){
-                                holder.c_c_i_quantityNumber.setText(Integer.toString(10));
-                            }else {
-                                quantity ++ ;
-                                holder.c_c_i_quantityNumber.setText(Integer.toString(quantity));
-                            }
-                        });
-                        holder.c_c_i_subQuantity.setOnClickListener(v -> {
-                            if(quantity == 1){
-                                holder.c_c_i_quantityNumber.setText(Integer.toString(1));
-                            }
-                            else if (quantity <= 10){
-                                quantity -- ;
-                                holder.c_c_i_quantityNumber.setText(Integer.toString(quantity));
-                            }
                         });
                         holder.c_c_i_addToFavorite.setOnClickListener(v -> {
                             FAVORITES_DB.child(phoneNumber).child(productId).setValue(new FavoriteModel(productId));
@@ -132,7 +129,9 @@ public class CartFragment extends Fragment {
                         holder.c_c_i_remove.setOnClickListener(v -> {
                             CARTS_DB.child(phoneNumber).child(productId).removeValue();
                             Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+                            onStart();
                         });
+                        f_c_o_d_price.setText("Order Price:"+price);
                     }
                     @NonNull
                     @Override
@@ -154,16 +153,12 @@ public class CartFragment extends Fragment {
             super(itemView);
         }
 
-        public ImageView c_c_i_addQuantity,c_c_i_subQuantity,c_c_i_remove;
-        public TextView c_c_i_quantityNumber,c_c_i_addToFavorite;
-        public void showCart(String productId, String productQuantity) {
-            c_c_i_addQuantity= itemView.findViewById(R.id.c_c_i_addQuantity);
-            c_c_i_subQuantity= itemView.findViewById(R.id.c_c_i_subQuantity);
-            ImageView c_c_i_productImage= itemView.findViewById(R.id.c_c_i_productImage);
-            TextView c_c_i_productName  = itemView.findViewById(R.id.c_c_i_productName);
-            TextView c_c_i_productPrice = itemView.findViewById(R.id.c_c_i_productPrice);
-            TextView c_c_i_productPoints= itemView.findViewById(R.id.c_c_i_productPoints);
-            c_c_i_quantityNumber= itemView.findViewById(R.id.c_c_i_quantityNumber);
+        public ImageView c_c_i_remove;
+        public TextView c_c_i_addToFavorite;
+        public void showCart(String productId, String productQuantity, String productSize, String orderTopping, String orderPrice) {
+            ImageView c_c_i_productImage  = itemView.findViewById(R.id.c_c_i_productImage);
+            TextView c_c_i_productName    = itemView.findViewById(R.id.c_c_i_productName);
+            TextView c_c_i_cartDescription= itemView.findViewById(R.id.c_c_i_cartDescription);
             c_c_i_addToFavorite = itemView.findViewById(R.id.c_c_i_addToFavorite);
             c_c_i_remove        = itemView.findViewById(R.id.c_c_i_remove);
 
@@ -174,12 +169,9 @@ public class CartFragment extends Fragment {
                             if(snapshot.exists()){
                                 ProductModel productModel = snapshot.getValue(ProductModel.class);
                                 Picasso.get().load(productModel.getProductImage()).placeholder(R.drawable.ic_photo_24).error(R.drawable.ic_photo_24).into(c_c_i_productImage);
-                                c_c_i_productName.setText(productModel.getProductName());
-//                                c_c_i_productPrice.setText(productModel.getProductPrice()+" جنيه ");
-//                                c_c_i_productPoints.setText(Integer.toString(Integer.parseInt(productModel.getProductPrice()) * 100));
-                            } else {
-                                Toast.makeText(itemView.getContext(), "لا يوجد هذا المنتج في الوقت الحالي", Toast.LENGTH_SHORT).show();
-                            }
+                                c_c_i_productName.setText(productQuantity + "|"+productModel.getProductName()+"|"+productSize);
+                                c_c_i_cartDescription.setText( "Topping:"+orderTopping+"\n"+"Order Price:"+orderPrice);
+                            } else {   Toast.makeText(itemView.getContext(), "لا يوجد هذا المنتج في الوقت الحالي", Toast.LENGTH_SHORT).show();  }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {

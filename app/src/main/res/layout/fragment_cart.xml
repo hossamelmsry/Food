@@ -38,12 +38,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_15dp"
             android:layout_marginEnd="@dimen/space_15dp"
-            android:layout_marginBottom="@dimen/space_10dp"
+            android:layout_marginBottom="@dimen/space_5dp"
             android:background="@drawable/bg_white"
             android:elevation="@dimen/space_5dp"
             android:orientation="vertical"
-            android:padding="@dimen/space_5dp"
-            android:visibility="visible"
+            android:padding="3dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -52,13 +52,27 @@
                 android:id="@+id/f_c_o_d_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="order number : 54121233zas14" />
+                android:text="@string/order_number" />
 
+            <TextView
+                android:id="@+id/f_c_o_d_phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_number" />
+
+            <TextView
+                android:id="@+id/f_c_o_d_usePromoCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold|italic"
+                android:text="@string/user_promo_code" />
+<!--            TODO: create promo activity-->
             <TextView
                 android:id="@+id/f_c_o_d_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="total price : 55 $" />
+                android:text="@string/order_price" />
+
 
             <Button
                 android:id="@+id/f_c_o_d_confirm"
@@ -68,6 +82,5 @@
                 android:layout_marginEnd="@dimen/space_20dp"
                 android:text="Confirm" />
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

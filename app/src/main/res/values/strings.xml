@@ -148,6 +148,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="order_price">Order Price 0 </string>
+    <string name="order_number">order number :</string>
+    <string name="user_promo_code">User Promo Code</string>
 
     <!--      refellar       -->
     <!--************************-->
