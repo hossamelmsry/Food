@@ -97,7 +97,6 @@
                         android:layout_height="@dimen/space_30dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/bg_purple_700"
-                        android:onClick="calculateTotalPrice"
                         android:src="@drawable/ic_sub_24" />
 
                     <ImageView
@@ -106,7 +105,6 @@
                         android:layout_height="@dimen/space_30dp"
                         android:layout_margin="5dp"
                         android:background="@drawable/bg_purple_700"
-                        android:onClick="calculateTotalPrice"
                         android:src="@drawable/ic_add_white" />
 
                 </LinearLayout>
@@ -153,31 +151,28 @@
                 app:selectionRequired="true"
                 app:singleSelection="true">
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/a_p_d_smallSize"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="calculateTotalPrice"
                     android:text="small" />
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/a_p_d_mediumSize"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_10dp"
-                    android:onClick="calculateTotalPrice"
                     android:paddingStart="@dimen/space_10dp"
                     android:paddingEnd="@dimen/space_10dp"
                     android:text="medium" />
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/a_p_d_largeSize"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="calculateTotalPrice"
                     android:text="Large" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -202,10 +197,8 @@
                 android:id="@+id/a_p_d_topping1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:gravity="left|center_vertical"
                 android:layoutDirection="rtl"
-                android:onClick="calculateTotalPrice"
                 android:text="Pizza" />
 
             <CheckBox
@@ -214,7 +207,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:layoutDirection="rtl"
-                android:onClick="calculateTotalPrice"
                 android:text="Coffee"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkBox" />
@@ -225,7 +217,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:layoutDirection="rtl"
-                android:onClick="calculateTotalPrice"
                 android:text="Burger"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
@@ -249,7 +240,7 @@
             android:paddingTop="@dimen/space_10dp"
             android:paddingEnd="@dimen/space_10dp"
             android:paddingBottom="@dimen/space_10dp"
-            android:text="@string/press_to_show_total_price"
+            android:text="@string/order_price"
             android:textColor="@color/black"
             android:textStyle="bold" />
 

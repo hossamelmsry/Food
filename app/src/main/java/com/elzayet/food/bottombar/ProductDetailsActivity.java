@@ -45,12 +45,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private ImageView a_p_d_productImage;
     private TextView a_p_d_productName,a_p_d_quantityNumber,a_p_d_totalPrice;
     private CheckBox a_p_d_topping1,a_p_d_topping2,a_p_d_topping3;
-    private Button a_p_d_buyProduct;
     private MaterialButtonToggleGroup a_p_d_toggleSize;
+    private Button a_p_d_buyProduct;
     //product Details initialization
     private String productId,productImage,productName,smallSize,mediumSize,largeSize;
-    //cart initialization
-    private String totalPrice ,productQuantity,productSize;
+    //Order initialization
+    private String productQuantity,productSize,orderTopping = "لا يوجد اضافات",orderPrice;
     private int sizePrice=0,quantity=0;
     //user account
     String phoneNumber ;
@@ -66,7 +66,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         else{ quantity = 1; }
         //user account
         SharedPreferences pref = getSharedPreferences("ACCOUNT", MODE_PRIVATE);
-        phoneNumber = pref.getString("phoneNumber", "NOTHING");
+        phoneNumber            = pref.getString("phoneNumber", "NOTHING");
         //xml initialization
         a_p_d_productImage = findViewById(R.id.a_p_d_productImage);
         a_p_d_productName  = findViewById(R.id.a_p_d_productName);
@@ -81,6 +81,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
         findViewById(R.id.a_p_d_back).setOnClickListener(v -> onBackPressed());
         findViewById(R.id.a_p_d_addQuantity).setOnClickListener(v -> addQuantitySystem());
         findViewById(R.id.a_p_d_subQuantity).setOnClickListener(v -> subQuantitySystem());
+        findViewById(R.id.a_p_d_smallSize).setOnClickListener(v -> setSmallSize());
+        findViewById(R.id.a_p_d_mediumSize).setOnClickListener(v -> setMediumSize());
+        findViewById(R.id.a_p_d_largeSize).setOnClickListener(v -> setLargeSize());
+
+
+        findViewById(R.id.a_p_d_topping1).setOnClickListener(v -> selectTopping());
+        findViewById(R.id.a_p_d_topping2).setOnClickListener(v -> selectTopping());
+        findViewById(R.id.a_p_d_topping3).setOnClickListener(v -> selectTopping());
+
+
+
+//        findViewById(R.id.a_p_d_addToCart).setOnClickListener(v -> validation(0));
         findViewById(R.id.a_p_d_addToCart).setOnClickListener(v -> addTo(productId,"CAETS"));
         findViewById(R.id.a_p_d_share).setOnClickListener(v -> addTo(productId,"SHARE"));
         findViewById(R.id.a_p_d_favorite).setOnClickListener(v -> addTo(productId,"FAVORITES"));
@@ -88,7 +100,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         //
 
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -97,49 +108,100 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            ProductModel productModel = snapshot.getValue(ProductModel.class);
-                            productName = productModel.getProductName();
-                            productImage= productModel.getProductImage();
-                            smallSize   = productModel.getSmallSize();
-                            mediumSize  = productModel.getMediumSize();
-                            largeSize   = productModel.getLargeSize();
-                            Picasso.get().load(productImage).placeholder(R.drawable.ic_photo_24).error(R.drawable.ic_photo_24).into(a_p_d_productImage);
-                            a_p_d_productName.setText(productName);
-                            sizePrice = Integer.parseInt(smallSize);
-                        }else {  Toast.makeText(getBaseContext(), "not exists", Toast.LENGTH_SHORT).show();  }
+                        ProductModel productModel = snapshot.getValue(ProductModel.class);
+                        productName = productModel.getProductName();
+                        productImage= productModel.getProductImage();
+                        smallSize   = productModel.getSmallSize();
+                        mediumSize  = productModel.getMediumSize();
+                        largeSize   = productModel.getLargeSize();
+                        Picasso.get().load(productImage).placeholder(R.drawable.ic_photo_24).error(R.drawable.ic_photo_24).into(a_p_d_productImage);
+                        a_p_d_productName.setText(productName);
+                        a_p_d_toggleSize.check(R.id.a_p_d_smallSize);
+                        sizePrice = Integer.parseInt(smallSize);
+                        productSize = "Small";
+                        validation(0);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {   Toast.makeText(getBaseContext(), error.getCode(), Toast.LENGTH_SHORT).show();   }
                 });
-
-        a_p_d_toggleSize.check(R.id.a_p_d_smallSize);
-
-
     }
 
     private void subQuantitySystem() {
         if (quantity == 1) {
             a_p_d_quantityNumber.setText(Integer.toString(quantity));
             productQuantity = Integer.toString(quantity);
-        }
-        else if (quantity <= 10){
+        } else if (quantity <= 10){
             quantity -- ;
             a_p_d_quantityNumber.setText(Integer.toString(quantity));
             productQuantity = Integer.toString(quantity);
         }
+        validation(0);
     }
 
     private void addQuantitySystem() {
         if (quantity >= 10) {
             a_p_d_quantityNumber.setText(Integer.toString(quantity));
             productQuantity = Integer.toString(quantity);
-        }
-        else {
+        } else {
             quantity ++ ;
             a_p_d_quantityNumber.setText(Integer.toString(quantity));
             productQuantity = Integer.toString(quantity);
         }
+        validation(0);
+    }
+
+    private void setSmallSize() {
+        sizePrice = Integer.parseInt(smallSize);
+        productSize = "Small";
+        validation(0);
+    }
+
+    private void setMediumSize() {
+        sizePrice = Integer.parseInt(mediumSize);
+        productSize = "Medium";
+        validation(0);
+    }
+
+    private void setLargeSize() {
+        sizePrice = Integer.parseInt(largeSize);
+        productSize = "large";
+        validation(0);
+    }
+
+    private void selectTopping(){
+        int topCost = 0;
+        String topText="";
+        if(a_p_d_topping1.isChecked()){
+            topCost+=2;
+            topText =" tomato ";
+        }
+        if(a_p_d_topping2.isChecked()){
+            topCost+=2;
+            topText = topText + "+ catchap ";
+        }
+        if(a_p_d_topping3.isChecked()){
+            topCost+=2;
+            topText = topText + "+ meat ";
+        }
+        orderTopping=topText;
+        validation(topCost);
+    }
+
+    private void validation(int topCost) {
+
+        int cost = (quantity * sizePrice) + topCost ;
+        orderPrice = Integer.toString(cost);
+        productQuantity = Integer.toString(quantity);
+        Toast.makeText(getBaseContext(), "productId       : "+productId+
+                "\n productQuantity:"+productQuantity+
+                "\n productSize    : "+productSize+
+                "\n orderTopping   :"+orderTopping+
+                "\n orderPrice     :"+orderPrice, Toast.LENGTH_SHORT).show();
+        a_p_d_totalPrice.setText("Total Price "+orderPrice);
+//        a_p_d_toggleSize.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+//            if (isChecked) { switch (checkedId) { case R.id.a_p_d_smallSize: || case R.id.a_p_d_mediumSize:|| case R.id.a_p_d_largeSize:}}
+//        });
+
     }
 
     private void addTo(String productId,String child) {
@@ -151,7 +213,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 SHARE_DB.child(phoneNumber).child(productId).setValue(new ShareModel(productId));
                 Toast.makeText(getBaseContext(), "Please Wait To Loading", Toast.LENGTH_SHORT).show();
             }else{
-                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,productQuantity,productSize,"topping",totalPrice));
+                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,productQuantity,productSize,orderTopping,orderPrice));
                 Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT).show();
             }
         }else{
@@ -169,36 +231,4 @@ public class ProductDetailsActivity extends AppCompatActivity {
         finish();
     }
 
-    public void calculateTotalPrice(View view) {
-        a_p_d_toggleSize.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (isChecked) {
-                switch (checkedId) {
-                    case R.id.a_p_d_smallSize : sizePrice = Integer.parseInt(smallSize);
-                        break;
-                    case R.id.a_p_d_mediumSize: sizePrice = Integer.parseInt(mediumSize);
-                        break;
-                    case R.id.a_p_d_largeSize : sizePrice = Integer.parseInt(largeSize);
-                        break;
-                }
-            }
-        });
-        int topping_ = 0;
-        String topping="";
-        if(a_p_d_topping1.isChecked()){
-            topping_+=2;
-            topping =" tomato ";
-        }
-        if(a_p_d_topping2.isChecked()){
-            topping_+=2;
-            topping = topping + "+ catchap ";
-        }
-        if(a_p_d_topping3.isChecked()){
-            topping_+=2;
-            topping = topping + "+ meat ";
-        }
-        int y = quantity * sizePrice + topping_ ;
-        Toast.makeText(getBaseContext(), ""+y, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getBaseContext(), topping, Toast.LENGTH_SHORT).show();
-        productQuantity = Integer.toString(quantity);
-    }
 }

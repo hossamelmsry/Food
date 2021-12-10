@@ -70,10 +70,11 @@
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.21927083333333333" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/menu/navigation_menu.xml" value="0.1" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/menu/slide_navigation_menu.xml" value="0.1292517006802721" />
+        <entry key="..\:/S.A.M/ELZAYET/projects/Food/app/src/main/res/layout/activity_product_details.xml" value="0.10185185185185185" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
