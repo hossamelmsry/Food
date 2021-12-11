@@ -15,7 +15,8 @@
             android:id="@+id/c_h_i_historyDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"/>
+            android:layout_gravity="end"
+            android:textSize="9sp" />
 
         <TextView
             android:id="@+id/c_h_i_historyDescription"

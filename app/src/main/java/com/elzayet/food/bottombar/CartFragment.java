@@ -46,7 +46,6 @@ public class CartFragment extends Fragment {
     private RecyclerView f_c_recyclerView;
     private LinearLayout f_c_ll_orderDetails;
     private TextView f_c_warningMsg,f_c_o_d_id,f_c_o_d_price,f_c_o_d_usePromoCode,f_c_o_d_phoneNumber;
-    private Button f_c_o_d_confirm;
     //user account
     private String phoneNumber ;
     // order initia
@@ -63,13 +62,18 @@ public class CartFragment extends Fragment {
         f_c_o_d_price       = view.findViewById(R.id.f_c_o_d_price);
         f_c_o_d_phoneNumber = view.findViewById(R.id.f_c_o_d_phoneNumber);
         f_c_o_d_usePromoCode= view.findViewById(R.id.f_c_o_d_usePromoCode);
-        f_c_o_d_confirm     = view.findViewById(R.id.f_c_o_d_confirm);
         f_c_recyclerView    = view.findViewById(R.id.f_c_recyclerView);
         f_c_recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         f_c_recyclerView.setHasFixedSize(true);
         //user account
         SharedPreferences pref = getContext().getSharedPreferences("ACCOUNT", MODE_PRIVATE);
         phoneNumber            = pref.getString("phoneNumber", "NOTHING");
+        view.findViewById(R.id.f_c_o_d_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmOrder();
+            }
+        });
         return view ;
     }
 
@@ -84,9 +88,7 @@ public class CartFragment extends Fragment {
                     orderId = CARTS_DB.child(phoneNumber).push().getKey();
                     f_c_ll_orderDetails.setVisibility(View.VISIBLE);
                     f_c_o_d_id.setText("Order Num:"+orderId);
-                }else{
-                    f_c_ll_orderDetails.setVisibility(View.GONE);
-                }
+                }else{  f_c_ll_orderDetails.setVisibility(View.GONE); }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -95,7 +97,6 @@ public class CartFragment extends Fragment {
         });
         price = 0;
         showCart();
-
     }
 
     //Cart
@@ -131,7 +132,7 @@ public class CartFragment extends Fragment {
                             Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
                             onStart();
                         });
-                        f_c_o_d_price.setText("Order Price:"+price);
+                        f_c_o_d_price.setText("Order Price:"+price+"|"+Integer.toString(price*100));
                     }
                     @NonNull
                     @Override
@@ -142,6 +143,10 @@ public class CartFragment extends Fragment {
         f_c_recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         adapter.startListening();
+    }
+
+    private void confirmOrder() {
+        Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
     }
 
     ///////////////////////////////////
@@ -159,8 +164,8 @@ public class CartFragment extends Fragment {
             ImageView c_c_i_productImage  = itemView.findViewById(R.id.c_c_i_productImage);
             TextView c_c_i_productName    = itemView.findViewById(R.id.c_c_i_productName);
             TextView c_c_i_cartDescription= itemView.findViewById(R.id.c_c_i_cartDescription);
-            c_c_i_addToFavorite = itemView.findViewById(R.id.c_c_i_addToFavorite);
-            c_c_i_remove        = itemView.findViewById(R.id.c_c_i_remove);
+            c_c_i_addToFavorite           = itemView.findViewById(R.id.c_c_i_addToFavorite);
+            c_c_i_remove                  = itemView.findViewById(R.id.c_c_i_remove);
 
             FirebaseDatabase.getInstance().getReference("PRODUCTS").child(productId)
                     .addListenerForSingleValueEvent(new ValueEventListener() {

@@ -94,7 +94,6 @@
                 android:layout_width="@dimen/space_25dp"
                 android:layout_height="@dimen/space_25dp"
                 android:layout_marginStart="@dimen/space_20dp"
-                android:onClick="callRefellarActivity"
                 android:src="@mipmap/whatsapp"/>
             <ImageView
                 android:id="@+id/a_w_twitter"

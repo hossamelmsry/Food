@@ -35,7 +35,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import java.util.Hashtable;
 
 public class WalletActivity extends AppCompatActivity {
-    private final DatabaseReference USERS_DB = FirebaseDatabase.getInstance().getReference("USERS");
+    private final DatabaseReference ARCHIVE_DB = FirebaseDatabase.getInstance().getReference("ARCHIVE");
 
     private ImageView a_w_qrImage,a_w_facebook,a_w_instagram,a_w_twitter;
     private TextView a_w_userPoints,a_w_refellarLink;
@@ -67,13 +67,12 @@ public class WalletActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        USERS_DB.child("WALLETS").child(phoneNumber)
+        FirebaseDatabase.getInstance().getReference("WALLETS").child(phoneNumber)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         PointsModel pointsModel = snapshot.getValue(PointsModel.class);
-                        String points           = pointsModel.getPoints();
-                        int x = Integer.parseInt(points);
+                        int x = Integer.parseInt(pointsModel.getPoints());
                         a_w_userPoints.setText(Integer.toString(x / 100) + " جنيه ");
                     }
                     @Override
@@ -105,7 +104,7 @@ public class WalletActivity extends AppCompatActivity {
 
     private void showHistory() {
         FirebaseRecyclerOptions<ArchiveModel> options =
-                new FirebaseRecyclerOptions.Builder<ArchiveModel>().setQuery(USERS_DB.child("HISTORIES").child(phoneNumber) , ArchiveModel.class).setLifecycleOwner( this).build();
+                new FirebaseRecyclerOptions.Builder<ArchiveModel>().setQuery(ARCHIVE_DB.child(phoneNumber) , ArchiveModel.class).setLifecycleOwner( this).build();
         FirebaseRecyclerAdapter<ArchiveModel, HistoryAdapter> adapter =
                 new FirebaseRecyclerAdapter<ArchiveModel, HistoryAdapter>(options) {
                     @Override
@@ -116,7 +115,7 @@ public class WalletActivity extends AppCompatActivity {
                         String msg  = model.getMsg();
                         holder.showHistory(msg,date,time);
                         holder.itemView.setOnClickListener(v -> {
-                            if(id.equals("1")){ Toast.makeText(getBaseContext(), id, Toast.LENGTH_SHORT).show(); }
+                            if(id.equals("1")){ Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show(); }
                             else{Toast.makeText(getBaseContext(), "user Adapter", Toast.LENGTH_SHORT).show(); }
                         });
                     }
@@ -137,11 +136,11 @@ public class WalletActivity extends AppCompatActivity {
             super(itemView);
         }
 
-        public void showHistory(String historyDescription,String date,String time) {
+        public void showHistory(String msg,String date,String time) {
             TextView c_h_i_historyDateTime   = itemView.findViewById(R.id.c_h_i_historyDateTime);
             TextView c_h_i_historyDescription= itemView.findViewById(R.id.c_h_i_historyDescription);
             c_h_i_historyDateTime.setText(date+"\n"+time);
-            c_h_i_historyDescription.setText(historyDescription);
+            c_h_i_historyDescription.setText(msg);
         }
     }
 

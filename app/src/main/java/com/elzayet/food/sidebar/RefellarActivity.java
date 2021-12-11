@@ -14,11 +14,17 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.elzayet.food.PointsModel;
 import com.elzayet.food.ProductModel;
 import com.elzayet.food.R;
 import com.elzayet.food.bottombar.ProductDetailsActivity;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class RefellarActivity extends AppCompatActivity {
@@ -49,12 +55,36 @@ public class RefellarActivity extends AppCompatActivity {
         a_r_recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
         a_r_recyclerView.setHasFixedSize(true);
 
-        a_r_userRefellarLink.setText(userRefellar);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        a_r_userRefellarLink.setText(userRefellar);
+
+        FirebaseDatabase.getInstance().getReference("WALLETS").child(phoneNumber)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        PointsModel pointsModel = snapshot.getValue(PointsModel.class);
+                        a_r_points.setText(pointsModel.getPoints());
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) { Toast.makeText(getBaseContext(), error.getMessage(), Toast.LENGTH_SHORT).show(); }
+                });
+
+        FirebaseDatabase.getInstance().getReference("REFELLARS").child(phoneNumber)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            long x = snapshot.getChildrenCount();
+                            a_r_totalInvitaions.setText(Integer.toString((int) x));
+                        }else{ a_r_totalInvitaions.setText("Total Invitaions = 0"); }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) { Toast.makeText(getBaseContext(), error.getMessage(), Toast.LENGTH_SHORT).show(); }
+                });
 
     }
 
@@ -66,24 +96,6 @@ public class RefellarActivity extends AppCompatActivity {
 //                new FirebaseRecyclerAdapter<ProductModel, HomeFragmentAdapter>(options) {
 //                    @Override
 //                    protected void onBindViewHolder(@NonNull HomeFragmentAdapter holder, int position, @NonNull ProductModel model) {
-//                        String productId     = model.getProductId();
-//                        String productImage  = model.getProductImage();
-//                        String productName   = model.getProductName();
-//                        String productPrice  = model.getProductPrice();
-//                        String productPoints = model.getPoints();
-//                        holder.showProduct(productImage,productName,productPrice,productPoints);
-//                        holder.itemView.setOnClickListener(v -> {
-//                            Intent intent = new Intent(getContext() , ProductDetailsActivity.class);
-//                            intent.putExtra("productId",productId);
-//                            intent.putExtra("productImage",productImage);
-//                            intent.putExtra("productName",productName);
-//                            intent.putExtra("productPrice",productPrice);
-//                            intent.putExtra("productPoints",productPoints);
-//                            startActivity(intent);
-//                        });
-//                        holder.c_p_i_favorite.setOnClickListener(v -> addTo(productId,"FAVORITES"));
-//
-//                        holder.c_p_i_share.setOnClickListener(v -> addTo(productId,"SHARE"));
 //                    }
 //                    @NonNull
 //                    @Override
