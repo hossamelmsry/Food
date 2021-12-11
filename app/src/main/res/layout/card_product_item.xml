@@ -21,21 +21,13 @@
         android:padding="@dimen/space_5dp">
 
         <ImageView
-            android:id="@+id/c_p_i_addToCart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_cart_white" />
-
-        <ImageView
             android:id="@+id/c_p_i_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/c_p_i_addToCart"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_favorite_white" />
 
         <ImageView

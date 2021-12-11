@@ -156,7 +156,6 @@ public class VerifyOTPActivity extends AppCompatActivity {
                         WALLETS_DB.child(phoneNumber).setValue(new PointsModel("500"));
                         Session.updateUserAccount(VerifyOTPActivity.this, phoneNumber, userName,userPassword,"000000",userRefellar);
                         NotificationApp.addNotificationWithAction(VerifyOTPActivity.this, "مبروك تم اضافة 500 في محفظتك, ");
-
                         startActivity(new Intent(VerifyOTPActivity.this, MainActivity.class));
                         finish();
                     }

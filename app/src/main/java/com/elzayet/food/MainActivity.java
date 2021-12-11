@@ -31,14 +31,13 @@ import com.elzayet.food.bottombar.CartFragment;
 import com.elzayet.food.bottombar.FavoritesFragment;
 import com.elzayet.food.bottombar.OrdersFragment;
 import com.elzayet.food.bottombar.home.HomeFragment;
-import com.elzayet.food.topbar.notification.NotificationActivity;
-import com.elzayet.food.topbar.search.SearchActivity;
+import com.elzayet.food.topbar.NotificationActivity;
+import com.elzayet.food.topbar.SearchActivity;
 import com.elzayet.food.tools.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 

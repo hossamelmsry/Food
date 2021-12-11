@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".topbar.notification.NotificationActivity">
+    tools:context=".topbar.NotificationActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/a_n_toolbar"

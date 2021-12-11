@@ -155,7 +155,6 @@ public class HomeFragment extends Fragment {
                             intent.putExtra("productQuantity","1");
                             startActivity(intent);
                         });
-                        holder.c_p_i_addToCart.setOnClickListener(v -> addTo(productId,"CARTS"));
                         holder.c_p_i_favorite.setOnClickListener(v -> addTo(productId,"FAVORITES"));
                         holder.c_p_i_share.setOnClickListener(v -> addTo(productId,"SHARE"));
                     }
@@ -178,9 +177,6 @@ public class HomeFragment extends Fragment {
             } else if(child.equals("SHARE")){
                 SHARE_DB.child(phoneNumber).child(productId).setValue(new ShareModel(productId));
                 Toast.makeText(getContext(), "Please Wait To Loading", Toast.LENGTH_SHORT).show();
-            }else{
-//                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,"1",totalPrice));
-                Toast.makeText(getContext(), "Add To Cart Successfully", Toast.LENGTH_SHORT).show();
             }
         }else{
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -211,9 +207,8 @@ public class HomeFragment extends Fragment {
             c_c_i_menuName.setText(menuName);
         }
 
-        public ImageView c_p_i_favorite ,c_p_i_share,c_p_i_addToCart;
+        public ImageView c_p_i_favorite ,c_p_i_share;
         public void showProduct(String productImage, String productName) {
-            c_p_i_addToCart= itemView.findViewById(R.id.c_p_i_addToCart);
             c_p_i_favorite = itemView.findViewById(R.id.c_p_i_favorite);
             c_p_i_share    = itemView.findViewById(R.id.c_p_i_share);
             ImageView c_p_i_productImage= itemView.findViewById(R.id.c_p_i_productImage);

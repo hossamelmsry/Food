@@ -2,6 +2,7 @@ package com.elzayet.food.bottombar;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,8 +22,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.elzayet.food.ArchiveModel;
 import com.elzayet.food.CartModel;
 import com.elzayet.food.FavoriteModel;
+import com.elzayet.food.OrderModel;
 import com.elzayet.food.ProductModel;
 import com.elzayet.food.R;
 import com.elzayet.food.UserModel;
@@ -38,18 +41,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CartFragment extends Fragment {
     // database initia
     private final DatabaseReference FAVORITES_DB= FirebaseDatabase.getInstance().getReference("FAVORITES");
     private final DatabaseReference CARTS_DB    = FirebaseDatabase.getInstance().getReference("CARTS");
+    private final DatabaseReference ORDERS_DB   = FirebaseDatabase.getInstance().getReference("ORDERS");
+    private final DatabaseReference ARCHIVE_DB  = FirebaseDatabase.getInstance().getReference("ARCHIVE");
     // xml initia
     private RecyclerView f_c_recyclerView;
     private LinearLayout f_c_ll_orderDetails;
     private TextView f_c_warningMsg,f_c_o_d_id,f_c_o_d_price,f_c_o_d_usePromoCode,f_c_o_d_phoneNumber;
+    // product ininti
+    private String productId,productQuantity,productSize;
     //user account
     private String phoneNumber ;
     // order initia
-    private String orderId ,orderPrice;
+    private String orderId ,orderPrice,orderTopping;
     private int price ;
     public CartFragment() { }
 
@@ -61,7 +71,7 @@ public class CartFragment extends Fragment {
         f_c_o_d_id          = view.findViewById(R.id.f_c_o_d_id);
         f_c_o_d_price       = view.findViewById(R.id.f_c_o_d_price);
         f_c_o_d_phoneNumber = view.findViewById(R.id.f_c_o_d_phoneNumber);
-        f_c_o_d_usePromoCode= view.findViewById(R.id.f_c_o_d_usePromoCode);
+//        f_c_o_d_usePromoCode= view.findViewById(R.id.f_c_o_d_usePromoCode);
         f_c_recyclerView    = view.findViewById(R.id.f_c_recyclerView);
         f_c_recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         f_c_recyclerView.setHasFixedSize(true);
@@ -107,11 +117,11 @@ public class CartFragment extends Fragment {
                 new FirebaseRecyclerAdapter<CartModel, CartFragmentAdapter>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull CartFragmentAdapter holder, int position, @NonNull CartModel model) {
-                        String productId       = model.getProductId();
-                        String productQuantity = model.getProductQuantity();
-                        String productSize     = model.getProductSize();
-                        String orderTopping    = model.getOrderTopping();
-                        String orderPrice      = model.getOrderPrice();
+                        productId       = model.getProductId();
+                        productQuantity = model.getProductQuantity();
+                        productSize     = model.getProductSize();
+                        orderTopping    = model.getOrderTopping();
+                        orderPrice      = model.getOrderPrice();
                         price += Integer.parseInt(orderPrice);
                         holder.showCart(productId,productQuantity,productSize,orderTopping,orderPrice);
                         holder.itemView.setOnClickListener(v -> {
@@ -146,7 +156,33 @@ public class CartFragment extends Fragment {
     }
 
     private void confirmOrder() {
-        Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "تم تاكيد الطلب", Toast.LENGTH_SHORT).show();
+        @SuppressLint("SimpleDateFormat") String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        @SuppressLint("SimpleDateFormat") String time = new SimpleDateFormat("hh:mm:ss a").format(new Date());
+        CARTS_DB.child(phoneNumber).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ORDERS_DB.child(phoneNumber).child(orderId).setValue(new OrderModel(orderId,orderPrice,orderTopping,productId,date,time));
+//                ARCHIVE_DB.child(phoneNumber).child(orderId).setValue(new ArchiveModel(orderId,orderId,date,time));
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    CartModel cartModel = ds.getValue(CartModel.class);
+                    productId       = cartModel.getProductId();
+                    productQuantity = cartModel.getProductQuantity();
+                    productSize     = cartModel.getProductSize();
+                    orderTopping    = cartModel.getOrderTopping();
+                    orderPrice      = cartModel.getOrderPrice();
+                    ARCHIVE_DB.child(phoneNumber).child(orderId).child(productId).setValue(new ArchiveModel(orderId,orderPrice,orderTopping,productId,productQuantity,productSize,date,time));
+                    CARTS_DB.child(phoneNumber).child(productId).removeValue();
+                }
+                onStart();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getCode(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     ///////////////////////////////////
@@ -183,8 +219,6 @@ public class CartFragment extends Fragment {
                             Toast.makeText(itemView.getContext(), error.getCode(), Toast.LENGTH_SHORT).show();
                         }
                     });
-
-
         }
     }
 }

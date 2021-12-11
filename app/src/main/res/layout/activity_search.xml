@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/space_5dp"
-    tools:context=".topbar.search.SearchActivity">
+    tools:context=".topbar.SearchActivity">
 
     <TextView
         android:id="@+id/a_s_warningMsg"

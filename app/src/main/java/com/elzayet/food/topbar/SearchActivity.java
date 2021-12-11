@@ -1,4 +1,4 @@
-package com.elzayet.food.topbar.search;
+package com.elzayet.food.topbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
