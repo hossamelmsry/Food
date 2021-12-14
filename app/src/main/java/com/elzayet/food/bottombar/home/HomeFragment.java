@@ -57,7 +57,6 @@ public class HomeFragment extends Fragment {
     private final DatabaseReference MENU_DB     = FirebaseDatabase.getInstance().getReference("MENU");
     private final DatabaseReference FAVORITES_DB= FirebaseDatabase.getInstance().getReference("FAVORITES");
     private final DatabaseReference SHARE_DB    = FirebaseDatabase.getInstance().getReference("SHARE");
-    private final DatabaseReference CARTS_DB    = FirebaseDatabase.getInstance().getReference("CARTS");
     private View view ;
     //banner slider
     private SliderAdapter sliderAdapter;

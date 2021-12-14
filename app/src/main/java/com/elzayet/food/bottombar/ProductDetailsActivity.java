@@ -139,18 +139,18 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {   Toast.makeText(getBaseContext(), error.getCode(), Toast.LENGTH_SHORT).show();   }
                 });
-//        if(orderTopping != null ){
-//            Pattern p1 = Pattern.compile("tomato");
-//            Pattern p2 = Pattern.compile("catchap");
-//            Pattern p3 = Pattern.compile("meat");
-//            Matcher m1 = p1.matcher(orderTopping);
-//            Matcher m2 = p2.matcher(orderTopping);
-//            Matcher m3 = p3.matcher(orderTopping);
-//            if(m1.find()){a_p_d_topping1.setChecked(true);}
-//            if(m2.find()){a_p_d_topping2.setChecked(true);}
-//            if(m3.find()){a_p_d_topping3.setChecked(true);}
-//            selectTopping();
-//        }
+        if(orderTopping != null ){
+            Pattern p1 = Pattern.compile("tomato");
+            Pattern p2 = Pattern.compile("catchap");
+            Pattern p3 = Pattern.compile("meat");
+            Matcher m1 = p1.matcher(orderTopping);
+            Matcher m2 = p2.matcher(orderTopping);
+            Matcher m3 = p3.matcher(orderTopping);
+            if(m1.find()){a_p_d_topping1.setChecked(true);}
+            if(m2.find()){a_p_d_topping2.setChecked(true);}
+            if(m3.find()){a_p_d_topping3.setChecked(true);}
+            selectTopping();
+        }
     }
 
     private void subQuantitySystem() {

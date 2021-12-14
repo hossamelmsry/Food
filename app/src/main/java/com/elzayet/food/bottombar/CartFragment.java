@@ -56,11 +56,12 @@ public class CartFragment extends Fragment {
     private TextView f_c_warningMsg,f_c_o_d_id,f_c_o_d_price,f_c_o_d_usePromoCode,f_c_o_d_phoneNumber;
     // product ininti
     private String productId,productQuantity,productSize;
-    //user account
-    private String phoneNumber ;
     // order initia
     private String orderId ,orderPrice,orderTopping;
     private int price ;
+    // user account
+    private String phoneNumber ;
+
     public CartFragment() { }
 
     @Override
@@ -190,9 +191,7 @@ public class CartFragment extends Fragment {
     ///////////////////////////////////
     private static class CartFragmentAdapter extends RecyclerView.ViewHolder {
 
-        public CartFragmentAdapter(@NonNull View itemView) {
-            super(itemView);
-        }
+        public CartFragmentAdapter(@NonNull View itemView) { super(itemView);  }
 
         public ImageView c_c_i_remove;
         public TextView c_c_i_addToFavorite;

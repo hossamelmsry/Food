@@ -151,14 +151,14 @@
                 app:selectionRequired="true"
                 app:singleSelection="true">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/a_p_d_smallSize"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="small" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/a_p_d_mediumSize"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
@@ -168,7 +168,7 @@
                     android:paddingEnd="@dimen/space_10dp"
                     android:text="medium" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/a_p_d_largeSize"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
