@@ -1,8 +1,11 @@
 package com.elzayet.food;
 
+import androidx.annotation.Keep;
+
+@Keep
 public class ArchiveModel {
     private String id, msg,date,time;
-    private String orderId, orderPrice, orderTopping, productId, productQuantity, productSize;
+    private String orderId,orderPrice,orderTopping,productId,productQuantity,productSize;
     public ArchiveModel() { }
 
     public ArchiveModel(String id, String msg, String date, String time) {
@@ -12,8 +15,7 @@ public class ArchiveModel {
         this.time = time;
     }
 
-
-    public ArchiveModel(String orderId, String orderPrice, String orderTopping, String productId, String productQuantity, String productSize, String date, String time) {
+    public ArchiveModel(String orderId,String orderPrice,String orderTopping,String productId,String productQuantity,String productSize,String date,String time){
         this.orderId         = orderId;
         this.orderPrice      = orderPrice;
         this.orderTopping    = orderTopping;

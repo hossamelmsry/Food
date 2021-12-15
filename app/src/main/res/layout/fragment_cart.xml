@@ -43,7 +43,7 @@
             android:elevation="@dimen/space_5dp"
             android:orientation="vertical"
             android:padding="3dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">

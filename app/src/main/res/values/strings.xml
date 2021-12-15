@@ -150,6 +150,9 @@
     <string name="order_price">Order Price 0 </string>
     <string name="order_number">order number :</string>
     <string name="user_promo_code">User Promo Code</string>
+    <string name="options">Options</string>
+    <string name="show_this_order">Show This Order</string>
+    <string name="cancel_this_order">Cancel This Order</string>
 
     <!--      refellar       -->
     <!--************************-->

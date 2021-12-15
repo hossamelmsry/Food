@@ -41,12 +41,12 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:drawablePadding="@dimen/space_5dp"
-            app:layout_constraintBottom_toTopOf="@id/linearLayout5"
+            app:layout_constraintBottom_toTopOf="@id/c_c_i_linearLayout"
             app:layout_constraintStart_toEndOf="@id/c_c_i_productImage"
             app:layout_constraintTop_toBottomOf="@id/c_c_i_productName" />
 
         <LinearLayout
-            android:id="@+id/linearLayout5"
+            android:id="@+id/c_c_i_linearLayout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"

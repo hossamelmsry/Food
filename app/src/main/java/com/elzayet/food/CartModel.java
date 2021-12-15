@@ -4,27 +4,16 @@ import androidx.annotation.Keep;
 
 @Keep
 public class CartModel {
-    private String productId,productQuantity,orderTopping,orderPrice,productSize;
+    private String productId,productQuantity,productTopping,productPrice,productSize;
 
     public CartModel() { }
 
-    public CartModel(String productId) {
-        this.productId = productId;
-    }
-
-//    public CartModel(String productId, String productQuantity, String orderTopping, String orderPrice) {
-//        this.productId = productId;
-//        this.productQuantity = productQuantity;
-//        this.orderTopping = orderTopping;
-//        this.orderPrice = orderPrice;
-//    }
-
-    public CartModel(String productId, String productQuantity, String productSize, String orderTopping, String orderPrice) {
+    public CartModel(String productId, String productQuantity, String productSize, String productTopping, String productPrice) {
         this.productId = productId;
         this.productQuantity = productQuantity;
-        this.orderTopping = orderTopping;
-        this.orderPrice = orderPrice;
         this.productSize = productSize;
+        this.productTopping = productTopping;
+        this.productPrice = productPrice;
     }
 
     public String getProductQuantity() { return productQuantity; }
@@ -33,11 +22,7 @@ public class CartModel {
 
     public String getProductSize() {  return productSize;   }
 
-    public String getOrderTopping() {
-        return orderTopping;
-    }
+    public String getProductTopping() { return productTopping; }
 
-    public String getOrderPrice() {
-        return orderPrice;
-    }
+    public String getProductPrice() { return productPrice; }
 }

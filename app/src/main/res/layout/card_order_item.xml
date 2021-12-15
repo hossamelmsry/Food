@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/c_o_i_userAccount"
+        android:id="@+id/c_o_i_orderStatus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/space_5dp"

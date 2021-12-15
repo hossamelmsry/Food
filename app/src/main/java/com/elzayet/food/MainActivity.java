@@ -34,6 +34,8 @@ import com.elzayet.food.bottombar.home.HomeFragment;
 import com.elzayet.food.topbar.NotificationActivity;
 import com.elzayet.food.topbar.SearchActivity;
 import com.elzayet.food.tools.Session;
+import com.elzayet.food.welcome.OnBoardActivity;
+import com.elzayet.food.welcome.SplashActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -115,8 +117,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         phoneNumber            = pref.getString("phoneNumber", "NOTHING");
         if(!phoneNumber.equals("NOTHING")) {
             String userName = pref.getString("userName","NOTHING");
-            a_c_appName.setText("HI ," + userName);
+            a_c_appName.setText("HI," + userName);
         }
+        //
         navigationDrawer();
         setupNavigationBar();
         getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new HomeFragment()).commit();

@@ -53,7 +53,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     // product Details initialization
     private String productId,productImage,productName,smallSize,mediumSize,largeSize;
     // Order initialization
-    private String productQuantity,productSize,orderTopping,orderPrice;
+    private String productQuantity,productSize,productTopping,productPrice;
     private int sizePrice=0,quantity=0;
     // user account
     private String phoneNumber ;
@@ -66,8 +66,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productId      = getIntent().getStringExtra("productId");
         productQuantity= getIntent().getStringExtra("productQuantity");
         productSize    = getIntent().getStringExtra("productSize");
-        orderTopping   = getIntent().getStringExtra("orderTopping");
-        orderPrice     = getIntent().getStringExtra("orderPrice");
+        productTopping = getIntent().getStringExtra("productTopping");
+        productPrice   = getIntent().getStringExtra("productPrice");
         if(productQuantity != null){ quantity = Integer.parseInt(productQuantity); } else{ quantity = 1; }
         //user account
         SharedPreferences pref = getSharedPreferences("ACCOUNT", MODE_PRIVATE);
@@ -139,13 +139,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {   Toast.makeText(getBaseContext(), error.getCode(), Toast.LENGTH_SHORT).show();   }
                 });
-        if(orderTopping != null ){
+        if(productTopping != null ){
             Pattern p1 = Pattern.compile("tomato");
             Pattern p2 = Pattern.compile("catchap");
             Pattern p3 = Pattern.compile("meat");
-            Matcher m1 = p1.matcher(orderTopping);
-            Matcher m2 = p2.matcher(orderTopping);
-            Matcher m3 = p3.matcher(orderTopping);
+            Matcher m1 = p1.matcher(productTopping);
+            Matcher m2 = p2.matcher(productTopping);
+            Matcher m3 = p3.matcher(productTopping);
             if(m1.find()){a_p_d_topping1.setChecked(true);}
             if(m2.find()){a_p_d_topping2.setChecked(true);}
             if(m3.find()){a_p_d_topping3.setChecked(true);}
@@ -215,15 +215,15 @@ public class ProductDetailsActivity extends AppCompatActivity {
             topCost+=2;
             topText = topText + "+meat";
         }
-        if(topText.equals("")){orderTopping="لا يوجد اضافات";}else{ orderTopping=topText; }
+        if(topText.equals("")){productTopping="لا يوجد اضافات";}else{ productTopping=topText; }
         validation(topCost);
     }
 
     private void validation(int topCost) {
         int cost = (quantity * sizePrice) + topCost ;
-        orderPrice = Integer.toString(cost);
+        productPrice = Integer.toString(cost);
         productQuantity = Integer.toString(quantity);
-        a_p_d_totalPrice.setText("Total Price "+orderPrice);
+        a_p_d_totalPrice.setText("Total Price "+productPrice);
     }
 
     private void addTo(String productId,String child) {
@@ -235,7 +235,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 SHARE_DB.child(phoneNumber).child(productId).setValue(new ShareModel(productId));
                 Toast.makeText(getBaseContext(), "Please Wait To Loading", Toast.LENGTH_SHORT).show();
             }else{
-                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,productQuantity,productSize,orderTopping,orderPrice));
+                CARTS_DB.child(phoneNumber).child(productId).setValue(new CartModel(productId,productQuantity,productSize,productTopping,productPrice));
                 Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_SHORT).show();
                 finish();
             }

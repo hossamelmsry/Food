@@ -1,5 +1,8 @@
 package com.elzayet.food;
 
+import androidx.annotation.Keep;
+
+@Keep
 public class NotificationModel {
     private String id, msg,date,time,status;
 
