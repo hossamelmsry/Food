@@ -54,7 +54,7 @@ public class CartFragment extends Fragment {
     private final DatabaseReference KITCHEN_DB   = FirebaseDatabase.getInstance().getReference("KITCHEN");
     private final DatabaseReference ACCOUNTER_DB = FirebaseDatabase.getInstance().getReference("ACCOUNTER");
     private final DatabaseReference ARCHIVE_DB   = FirebaseDatabase.getInstance().getReference("ARCHIVE");
-    private final DatabaseReference FAVORITES_DB   = FirebaseDatabase.getInstance().getReference("FAVORITES");
+    private final DatabaseReference FAVORITES_DB = FirebaseDatabase.getInstance().getReference("FAVORITES");
     // xml initia
     private RecyclerView f_c_recyclerView;
     private LinearLayout f_c_ll_orderDetails;
@@ -118,7 +118,7 @@ public class CartFragment extends Fragment {
                         String productSize     = model.getProductSize();
                         productTopping         = model.getProductTopping();
                         productPrice           = model.getProductPrice();
-                        price += Integer.parseInt(productPrice);
+                        price +=                 Integer.parseInt(productPrice);
                         holder.showCart(productId,productQuantity,productSize,productTopping,productPrice);
                         holder.itemView.setOnClickListener(v -> {
                             Intent intent = new Intent(getContext() , ProductDetailsActivity.class);
@@ -153,27 +153,26 @@ public class CartFragment extends Fragment {
 
     private void confirmOrder() {
         Toast.makeText(getContext(), "تم تاكيد الطلب", Toast.LENGTH_SHORT).show();
+        String orderPrice = Integer.toString(price);
         @SuppressLint("SimpleDateFormat") String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         @SuppressLint("SimpleDateFormat") String time = new SimpleDateFormat("hh:mm:ss a").format(new Date());
         CARTS_DB.child(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ORDERS_DB.child(phoneNumber).child(orderId).setValue(new OrderModel(orderId,date,time,"processed" ));
-                KITCHEN_DB.child(orderId).setValue(new OrderModel(phoneNumber,orderId,date,time,"processed" ));
-                ACCOUNTER_DB.child(orderId).setValue(new AccounterModel(phoneNumber,orderId,date,time,"Not_yet"));
+                ORDERS_DB.child(phoneNumber).child(orderId).setValue(new OrderModel(orderId,orderPrice,date,time,"processed" ));
+                KITCHEN_DB.child(orderId).setValue(new OrderModel(phoneNumber,orderId,orderPrice,date,time,"processed"));
+                ACCOUNTER_DB.child(orderId).setValue(new AccounterModel(phoneNumber,orderId,orderPrice,date,time,"Not_yet"));
                 for(DataSnapshot ds : snapshot.getChildren()) {
-                    CartModel cartModel = ds.getValue(CartModel.class);
+                    CartModel cartModel    = ds.getValue(CartModel.class);
                     String productId       = cartModel.getProductId();
                     String productQuantity = cartModel.getProductQuantity();
                     String productSize     = cartModel.getProductSize();
-                    productTopping  = cartModel.getProductTopping();
-                    productPrice    = cartModel.getProductPrice();
+                    productTopping         = cartModel.getProductTopping();
+                    productPrice           = cartModel.getProductPrice();
                     ARCHIVE_DB.child(phoneNumber).child(orderId).child(productId).setValue(new ArchiveModel(orderId,productPrice,productTopping,productId,productQuantity,productSize,date,time));
                     CARTS_DB.child(phoneNumber).child(productId).removeValue();
                 }
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                getContext().startActivity(intent);
+                onStart();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

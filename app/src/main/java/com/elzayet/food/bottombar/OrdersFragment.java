@@ -80,30 +80,29 @@ public class OrdersFragment extends Fragment {
                 new FirebaseRecyclerAdapter<OrderModel, OrdersFragmentAdapter>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull OrdersFragmentAdapter holder, int position, @NonNull OrderModel model) {
-                        String date        = model.getDate();
-                        String time        = model.getTime();
-                        String orderId     = model.getOrderId();
-                        String orderStatus = model.getOrderStatus();
-                        holder.showOrders(date,time,orderId,orderStatus);
+                        String date       = model.getDate();
+                        String time       = model.getTime();
+                        String orderId    = model.getOrderId();
+                        String orderStatus= model.getOrderStatus();
+                        String orderPrice = model.getOrderPrice();
+                        holder.showOrders(orderPrice,date,time,orderId,orderStatus);
                         holder.itemView.setOnClickListener(view -> {
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                             builder.setTitle(R.string.options);
                             builder.setIcon(R.drawable.ic_photo_24);
                             builder.setPositiveButton(R.string.show_this_order, (dialog, which) -> showOrderList(orderId));
-                            builder.setNeutralButton(R.string.cancel_this_order, (dialog, which) -> cancelOrder(orderId,date,time,"Cancel" ));
+                            builder.setNeutralButton(R.string.cancel_this_order, (dialog, which) -> cancelOrder(orderId,orderPrice,date,time,"Cancel" ));
                             builder.show();
-
                         });
                     }
 
-                    private void cancelOrder(String orderId, String date, String time, String orderStatus) {
-                        ORDERS_DB.child(phoneNumber).child(orderId).setValue(new OrderModel(orderId,date,time,orderStatus ));
+                    private void cancelOrder(String orderId,String orderPrice,String date,String time,String orderStatus) {
+                        ORDERS_DB.child(phoneNumber).child(orderId).setValue(new OrderModel(orderId,orderPrice,date,time,orderStatus));
                         KITCHEN_DB.child(orderId).removeValue();
                         ACCOUNTER_DB.child(orderId).removeValue();
                         ARCHIVE_DB.child(phoneNumber).child(orderId).removeValue();
                         onStart();
                     }
-
                     @NonNull
                     @Override
                     public OrdersFragmentAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -164,14 +163,16 @@ public class OrdersFragment extends Fragment {
             super(itemView);
         }
 
-        public void showOrders(String date, String time, String orderId, String orderStatus) {
+        public void showOrders(String orderPrice,String date,String time, String orderId, String orderStatus) {
             TextView c_o_i_dateTime   = itemView.findViewById(R.id.c_o_i_dateTime);
             TextView c_o_i_orderId    = itemView.findViewById(R.id.c_o_i_orderId);
+            TextView c_o_i_orderPrice = itemView.findViewById(R.id.c_o_i_orderPrice);
             TextView c_o_i_orderStatus= itemView.findViewById(R.id.c_o_i_orderStatus);
 
             c_o_i_dateTime.setText(date+"\n"+time);
             c_o_i_orderId.setText("Order Num : "+orderId);
-            c_o_i_orderStatus.setText("order status :"+orderStatus);
+            c_o_i_orderPrice.setText("Order Price : "+orderPrice);
+            c_o_i_orderStatus.setText("Order Status :"+orderStatus);
         }
 
         public void showList(String productId, String productQuantity, String productSize, String productTopping, String productPrice) {
