@@ -2,8 +2,6 @@ package com.elzayet.food.bottombar;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -17,15 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.elzayet.food.AccounterModel;
 import com.elzayet.food.CartModel;
-import com.elzayet.food.FavoriteModel;
-import com.elzayet.food.MainActivity;
 import com.elzayet.food.OrderModel;
 import com.elzayet.food.ProductModel;
 import com.elzayet.food.R;
@@ -35,7 +29,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -75,7 +68,7 @@ public class OrdersFragment extends Fragment {
 
     private void showOrders() {
         FirebaseRecyclerOptions<OrderModel> options = new FirebaseRecyclerOptions.Builder<OrderModel>()
-                        .setQuery(ORDERS_DB.child(phoneNumber).orderByChild("orderStatus").equalTo("processed") ,OrderModel.class).setLifecycleOwner((LifecycleOwner) getContext()).build();
+                        .setQuery(ORDERS_DB.child(phoneNumber).orderByChild("payment").equalTo("Not Paid") ,OrderModel.class).setLifecycleOwner((LifecycleOwner) getContext()).build();
         FirebaseRecyclerAdapter<OrderModel, OrdersFragmentAdapter> adapter =
                 new FirebaseRecyclerAdapter<OrderModel, OrdersFragmentAdapter>(options) {
                     @Override
@@ -85,19 +78,20 @@ public class OrdersFragment extends Fragment {
                         String orderId    = model.getOrderId();
                         String orderStatus= model.getOrderStatus();
                         String orderPrice = model.getOrderPrice();
-                        holder.showOrders(orderPrice,date,time,orderId,orderStatus);
+                        String payment    = model.getPayment();
+                        holder.showOrders(orderPrice,date,time,orderId,orderStatus,payment);
                         holder.itemView.setOnClickListener(view -> {
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                             builder.setTitle(R.string.options);
                             builder.setIcon(R.drawable.ic_photo_24);
                             builder.setPositiveButton(R.string.show_this_order, (dialog, which) -> showOrderList(orderId));
-                            builder.setNeutralButton(R.string.cancel_this_order, (dialog, which) -> cancelOrder(orderId,orderPrice,date,time,"Cancel" ));
+                            builder.setNeutralButton(R.string.cancel_this_order, (dialog, which) -> cancelOrder(orderId,orderPrice,date,time ));
                             builder.show();
                         });
                     }
 
-                    private void cancelOrder(String orderId,String orderPrice,String date,String time,String orderStatus) {
-                        ORDERS_DB.child(phoneNumber).child(orderId).setValue(new OrderModel(orderId,orderPrice,date,time,orderStatus));
+                    private void cancelOrder(String orderId,String orderPrice,String date,String time) {
+                        ORDERS_DB.child(phoneNumber).child(orderId).setValue(new OrderModel(orderId,orderPrice,date,time,"Cancel","Cancel","x"));
                         KITCHEN_DB.child(orderId).removeValue();
                         ACCOUNTER_DB.child(orderId).removeValue();
                         ARCHIVE_DB.child(phoneNumber).child(orderId).removeValue();
@@ -163,16 +157,12 @@ public class OrdersFragment extends Fragment {
             super(itemView);
         }
 
-        public void showOrders(String orderPrice,String date,String time, String orderId, String orderStatus) {
+        public void showOrders(String orderPrice,String date,String time, String orderId, String orderStatus, String payment) {
             TextView c_o_i_dateTime   = itemView.findViewById(R.id.c_o_i_dateTime);
-            TextView c_o_i_orderId    = itemView.findViewById(R.id.c_o_i_orderId);
-            TextView c_o_i_orderPrice = itemView.findViewById(R.id.c_o_i_orderPrice);
-            TextView c_o_i_orderStatus= itemView.findViewById(R.id.c_o_i_orderStatus);
+            TextView c_o_i_orderDetails=itemView.findViewById(R.id.c_o_i_orderDetails);
 
             c_o_i_dateTime.setText(date+"\n"+time);
-            c_o_i_orderId.setText("Order Num : "+orderId);
-            c_o_i_orderPrice.setText("Order Price : "+orderPrice);
-            c_o_i_orderStatus.setText("Order Status :"+orderStatus);
+            c_o_i_orderDetails.setText("Order Num : "+orderId+"\nOrder Price : "+orderPrice+"\nOrder Status :"+orderStatus+"\npayment :"+payment);
         }
 
         public void showList(String productId, String productQuantity, String productSize, String productTopping, String productPrice) {

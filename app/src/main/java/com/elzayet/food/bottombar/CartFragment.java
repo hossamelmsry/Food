@@ -159,9 +159,9 @@ public class CartFragment extends Fragment {
         CARTS_DB.child(phoneNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ORDERS_DB.child(phoneNumber).child(orderId).setValue(new OrderModel(orderId,orderPrice,date,time,"processed" ));
+                ORDERS_DB.child(phoneNumber).child(orderId).setValue(new OrderModel(orderId,orderPrice,date,time,"processed","Not Paid","xxxx" ));
                 KITCHEN_DB.child(orderId).setValue(new OrderModel(phoneNumber,orderId,orderPrice,date,time,"processed"));
-                ACCOUNTER_DB.child(orderId).setValue(new AccounterModel(phoneNumber,orderId,orderPrice,date,time,"Not_yet"));
+                ACCOUNTER_DB.child(orderId).setValue(new AccounterModel(phoneNumber,orderId,orderPrice,date,time,"Not Paid"));
                 for(DataSnapshot ds : snapshot.getChildren()) {
                     CartModel cartModel    = ds.getValue(CartModel.class);
                     String productId       = cartModel.getProductId();

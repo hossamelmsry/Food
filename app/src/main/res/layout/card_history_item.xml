@@ -21,10 +21,8 @@
         <TextView
             android:id="@+id/c_h_i_historyDescription"
             android:layout_width="match_parent"
-            android:padding="@dimen/space_10dp"
-            android:textSize="@dimen/text_size_15sp"
-            android:textAlignment="textEnd"
+            android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_left_arrow_right_24"
-            android:layout_height="wrap_content" />
+            android:padding="@dimen/space_10dp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

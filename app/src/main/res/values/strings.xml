@@ -26,7 +26,6 @@
     <string name="side_nav_version">version</string>
     <string name="side_nav_points">Points</string>
 
-
     <string name="phone_data">phone_data</string>
     <string name="disconnected">disconnected</string>
     <string name="no_internet_connection">no_internet_connection</string>
@@ -156,5 +155,13 @@
 
     <!--      refellar       -->
     <!--************************-->
+
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
 
 </resources>

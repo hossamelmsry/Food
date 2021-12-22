@@ -27,7 +27,10 @@
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_bott_nav_home.xml" value="0.23958333333333334" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_bott_nav_orders.xml" value="0.23958333333333334" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_facebook_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_giftcard_gray.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_giftcard_white24.xml" value="0.23958333333333334" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_left_arrow_right_24.xml" value="0.23958333333333334" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_lock_24.xml" value="0.23958333333333334" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_notifications.xml" value="0.23958333333333334" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_rate_24.xml" value="0.23958333333333334" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/drawable/ic_sub_24.xml" value="0.23958333333333334" />
@@ -40,7 +43,7 @@
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_main.xml" value="0.536" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_notification.xml" value="0.1" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_on_board.xml" value="0.1" />
-        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_points.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_points.xml" value="0.35600907029478457" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_product_details.xml" value="0.1" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_qaactivity.xml" value="0.20208333333333334" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_refellar.xml" value="0.264" />
@@ -54,6 +57,7 @@
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/activity_wallet.xml" value="0.24938271604938272" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_cart_item.xml" value="0.27162629757785467" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_category_item.xml" value="0.1" />
+        <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_daily_points_item.xml" value="0.6" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_favorite_item.xml" value="0.264" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_history_item.xml" value="0.21927083333333333" />
         <entry key="..\:/ELZAYET/projects/Food/app/src/main/res/layout/card_notification_item.xml" value="0.21927083333333333" />

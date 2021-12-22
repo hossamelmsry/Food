@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.elzayet.food.ArchiveModel;
 import com.elzayet.food.MainActivity;
 import com.elzayet.food.NotificationModel;
+import com.elzayet.food.OrderModel;
 import com.elzayet.food.PointsModel;
 import com.elzayet.food.R;
 import com.elzayet.food.UserModel;
@@ -36,11 +37,10 @@ public class VerifyOTPActivity extends AppCompatActivity {
     //User Account
     private String userName , phoneNumber , userPassword, userRefellar;
 
-    DatabaseReference ACCOUNTS_DB = FirebaseDatabase.getInstance().getReference("ACCOUNTS");
-    DatabaseReference ARCHIVE_DB = FirebaseDatabase.getInstance().getReference("ARCHIVE");
-    DatabaseReference WALLETS_DB = FirebaseDatabase.getInstance().getReference("WALLETS");
-    DatabaseReference NOTIFICATION_DB = FirebaseDatabase.getInstance().getReference("NOTIFICATIONS");
-
+    private final DatabaseReference ACCOUNTS_DB     = FirebaseDatabase.getInstance().getReference("ACCOUNTS");
+    private final DatabaseReference ORDERS_DB       = FirebaseDatabase.getInstance().getReference("ORDERS");
+    private final DatabaseReference WALLETS_DB      = FirebaseDatabase.getInstance().getReference("WALLETS");
+    private final DatabaseReference NOTIFICATION_DB = FirebaseDatabase.getInstance().getReference("NOTIFICATIONS");
 
     private ActivityVerifyOTPBinding binding ;
     private PhoneAuthProvider.ForceResendingToken forceResendingToken;
@@ -145,20 +145,17 @@ public class VerifyOTPActivity extends AppCompatActivity {
         progressDialog.show();
 
         auth.signInWithCredential(credential)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        progressDialog.dismiss();
-                        Toast.makeText(getBaseContext(), "Signup Successfuly", Toast.LENGTH_SHORT).show();
-                        ACCOUNTS_DB.child(phoneNumber).setValue(new UserModel(phoneNumber,userName,userPassword,"000000",userRefellar,signupDate));
-                        ARCHIVE_DB.child(phoneNumber).child("1").setValue(new ArchiveModel("1","تسجيل في التطبيق = 500 نقطة في محفظتك",signupDate,signupTime));
-                        NOTIFICATION_DB.child(phoneNumber).child("1").setValue(new NotificationModel("1","تسجيل في التطبيق = 500 نقطة في محفظتك",signupDate,signupTime,"application"));
-                        WALLETS_DB.child(phoneNumber).setValue(new PointsModel("500"));
-                        Session.updateUserAccount(VerifyOTPActivity.this, phoneNumber, userName,userPassword,"000000",userRefellar);
-                        NotificationApp.addNotificationWithAction(VerifyOTPActivity.this, "مبروك تم اضافة 500 في محفظتك, ");
-                        startActivity(new Intent(VerifyOTPActivity.this, MainActivity.class));
-                        finish();
-                    }
+                .addOnSuccessListener(authResult -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(getBaseContext(), "Signup Successfuly", Toast.LENGTH_SHORT).show();
+                    ACCOUNTS_DB.child(phoneNumber).setValue(new UserModel(phoneNumber,userName,userPassword,"000000",userRefellar,signupDate));
+                    ORDERS_DB.child(phoneNumber).child("1").setValue(new OrderModel("1","تسجيل في التطبيق = 500 نقطة في محفظتك",signupDate,signupTime));
+                    NOTIFICATION_DB.child(phoneNumber).child("1").setValue(new NotificationModel("1","تسجيل في التطبيق = 500 نقطة في محفظتك",signupDate,signupTime,"application"));
+                    WALLETS_DB.child(phoneNumber).setValue(new PointsModel("500"));
+                    Session.updateUserAccount(VerifyOTPActivity.this, phoneNumber, userName,userPassword,"000000",userRefellar);
+                    NotificationApp.addNotificationWithAction(VerifyOTPActivity.this, "مبروك تم اضافة 500 في محفظتك, ");
+                    startActivity(new Intent(VerifyOTPActivity.this, MainActivity.class));
+                    finish();
                 })
                 .addOnFailureListener(e -> {
                     progressDialog.dismiss();

@@ -25,6 +25,7 @@
         android:textColor="@color/black"
         android:drawableStart="@mipmap/ic_points"
         android:textSize="@dimen/text_size_20sp"
+        android:drawablePadding="@dimen/space_5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView" />

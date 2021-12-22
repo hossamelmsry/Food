@@ -4,16 +4,17 @@ import androidx.annotation.Keep;
 
 @Keep
 public class OrderModel {
-    private String orderId ,date,time,phoneNumber,orderStatus,orderPrice;
+    private String orderId ,date,time,phoneNumber,orderStatus,orderPrice,payment;
 
     public OrderModel() { }
 
-    public OrderModel(String orderId, String orderPrice, String date,String time, String orderStatus) {
+    public OrderModel(String orderId, String orderPrice, String date,String time, String orderStatus, String payment, String xxxxxx) {
         this.orderId     = orderId;
         this.orderPrice  = orderPrice;
         this.date        = date;
         this.time        = time;
         this.orderStatus = orderStatus;
+        this.payment     = payment;
     }
 
     public OrderModel(String phoneNumber, String orderId, String orderPrice, String date,String time, String orderStatus) {
@@ -23,6 +24,13 @@ public class OrderModel {
         this.time        = time;
         this.orderStatus = orderStatus;
         this.phoneNumber = phoneNumber;
+    }
+
+    public OrderModel(String orderId, String orderStatus, String date, String time) {
+        this.orderId    = orderId;
+        this.date       = date;
+        this.time       = time;
+        this.orderStatus= orderStatus;
     }
 
     public String getOrderId() {
@@ -40,4 +48,8 @@ public class OrderModel {
     public String getDate() { return date; }
 
     public String getTime() { return time; }
+
+    public String getPayment() {
+        return payment;
+    }
 }

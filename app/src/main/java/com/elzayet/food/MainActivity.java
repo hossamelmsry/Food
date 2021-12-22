@@ -91,23 +91,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         bottom_navigation.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.bott_nav_home:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new HomeFragment()).commit();
+                case R.id.bott_nav_home     : getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new HomeFragment()).commit();
                     return true;
-
-                case R.id.bott_nav_cart:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new CartFragment()).commit();
+                case R.id.bott_nav_cart     : getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new CartFragment()).commit();
                     return true;
-
-                case R.id.bott_nav_orders:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new OrdersFragment()).commit();
+                case R.id.bott_nav_orders   : getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new OrdersFragment()).commit();
                     return true;
-
-                case R.id.bott_nav_favorites:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new FavoritesFragment()).commit();
+                case R.id.bott_nav_favorites: getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new FavoritesFragment()).commit();
                     return true;
-                case R.id.bott_nav_account:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new AccountFragment()).commit();
+                case R.id.bott_nav_account  : getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new AccountFragment()).commit();
                     return true;
             }
             return false;
@@ -187,8 +179,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.slide_nav_home        :
-                a_h_drawer_layout.closeDrawer(GravityCompat.START);
-                getSupportFragmentManager().beginTransaction().replace(R.id.a_m_fragment, new HomeFragment()).commit();
+                Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
                 break;
             //nav_profile
             case R.id.slide_nav_registration: startActivity(new Intent(MainActivity.this, RegistrationActivity.class));

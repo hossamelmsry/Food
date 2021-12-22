@@ -29,7 +29,7 @@ import com.squareup.picasso.Picasso;
 
 public class RefellarActivity extends AppCompatActivity {
 
-    private TextView a_r_points,a_r_totalInvitaions,a_r_userRefellarLink;
+    private TextView a_r_userPoints,a_r_totalInvitaions,a_r_userRefellarLink;
     private ImageView a_r_invite_facebook,a_r_invite_instagram,a_r_invite_twitter;
     private RecyclerView a_r_recyclerView;
     //User Account
@@ -44,7 +44,7 @@ public class RefellarActivity extends AppCompatActivity {
         phoneNumber            = pref.getString("phoneNumber", "NOTHING");
         userRefellar           = pref.getString("userRefellar", "NOTHING");
 
-        a_r_points           = findViewById(R.id.a_r_points);
+        a_r_userPoints       = findViewById(R.id.a_r_userPoints);
         a_r_totalInvitaions  = findViewById(R.id.a_r_totalInvitaions);
         a_r_userRefellarLink = findViewById(R.id.a_r_userRefellarLink);
         a_r_invite_facebook  = findViewById(R.id.a_r_invite_facebook);
@@ -67,7 +67,7 @@ public class RefellarActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         PointsModel pointsModel = snapshot.getValue(PointsModel.class);
-                        a_r_points.setText(pointsModel.getPoints());
+                        a_r_userPoints.setText(pointsModel.getPoints());
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) { Toast.makeText(getBaseContext(), error.getMessage(), Toast.LENGTH_SHORT).show(); }

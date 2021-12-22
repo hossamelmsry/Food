@@ -86,7 +86,9 @@ public class OnBoardActivity extends AppCompatActivity {
     };
 
 
-
+    ///////////////////////////////
+    ////////OnBoardAdapter/////////
+    ///////////////////////////////
     private class OnBoardAdapter extends PagerAdapter {
         private Context context;
         private LayoutInflater layoutInflater ;
@@ -134,7 +136,6 @@ public class OnBoardActivity extends AppCompatActivity {
         if (hasFocus) { hideSystemUI(); }
         else { showSystemUI(); }
     }
-
     private void hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
