@@ -185,7 +185,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 finish();
                 break;
             //nav_profile
-            case R.id.slide_nav_registration: startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
+            case R.id.slide_nav_registration:
+                Intent re_intent = new Intent(MainActivity.this,RegistrationActivity.class);
+                re_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(re_intent);
+                finish();
                 break;
             case R.id.slide_nav_wallet      : startActivity(new Intent(MainActivity.this, WalletActivity.class));
                 break;

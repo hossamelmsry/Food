@@ -27,7 +27,7 @@ import java.util.List;
 
 public class RegistrationActivity extends AppCompatActivity {
     private RecyclerView a_r_s_u_s_recyclerView;
-    private RetailerStartUpScreenAdapter plateAdapter;
+    private RegistrationAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +35,6 @@ public class RegistrationActivity extends AppCompatActivity {
         findViewById(R.id.a_r_s_u_s_back).setOnClickListener(v -> finish());
         a_r_s_u_s_recyclerView = findViewById(R.id.a_r_s_u_s_recyclerView);
         a_r_s_u_s_recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        a_r_s_u_s_recyclerView.setKeepScreenOn(true);
         a_r_s_u_s_recyclerView.setHasFixedSize(true);
     }
 
@@ -49,29 +48,29 @@ public class RegistrationActivity extends AppCompatActivity {
             startActivity(new Intent(getBaseContext(), MainActivity.class));
             finish();
         }
-        List<RetailerStartUpScreenModel> retailerStartUpScreenModelList = new ArrayList<>();
-        retailerStartUpScreenModelList.add(new RetailerStartUpScreenModel(R.mipmap.desh1));
-        retailerStartUpScreenModelList.add(new RetailerStartUpScreenModel(R.mipmap.desh2));
-        retailerStartUpScreenModelList.add(new RetailerStartUpScreenModel(R.mipmap.desh3));
-        retailerStartUpScreenModelList.add(new RetailerStartUpScreenModel(R.mipmap.desh1));
-        retailerStartUpScreenModelList.add(new RetailerStartUpScreenModel(R.mipmap.desh2));
-        retailerStartUpScreenModelList.add(new RetailerStartUpScreenModel(R.mipmap.desh3));
+        List<RegistrationModel> registrationModelList = new ArrayList<>();
+        registrationModelList.add(new RegistrationModel(R.mipmap.desh1));
+        registrationModelList.add(new RegistrationModel(R.mipmap.desh2));
+        registrationModelList.add(new RegistrationModel(R.mipmap.desh3));
+        registrationModelList.add(new RegistrationModel(R.mipmap.desh1));
+        registrationModelList.add(new RegistrationModel(R.mipmap.desh2));
+        registrationModelList.add(new RegistrationModel(R.mipmap.desh3));
 
-        plateAdapter = new RetailerStartUpScreenAdapter(retailerStartUpScreenModelList, this);
-        a_r_s_u_s_recyclerView.setAdapter(plateAdapter);
-        plateAdapter.notifyDataSetChanged();
-        autoSlideerScroll();
+        adapter = new RegistrationAdapter(registrationModelList);
+        a_r_s_u_s_recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        autoSliderScroll();
     }
 
-    private void autoSlideerScroll() {
+    private void autoSliderScroll() {
         final int speedScroll = 0;
         final Handler handler = new Handler(Looper.getMainLooper());
         final Runnable runnable = new Runnable() {
             int count = 0;
             @Override
             public void run() {
-                if (count == plateAdapter.getItemCount()) count = 0;
-                if (count < plateAdapter.getItemCount()) {
+                if (count == adapter.getItemCount()) count = 0;
+                if (count < adapter.getItemCount()) {
                     a_r_s_u_s_recyclerView.smoothScrollToPosition(++count);
                     handler.postDelayed(this, speedScroll);
                 }
@@ -114,37 +113,35 @@ public class RegistrationActivity extends AppCompatActivity {
         }.start();
     }
 
-    static class RetailerStartUpScreenAdapter extends RecyclerView.Adapter<RetailerStartUpScreenAdapter.PlateViewHolder> {
-        private List<RetailerStartUpScreenModel> plateModelList;
-        private Context context;
+    ///////////////////////////////
+    //RegistrationActivityAdapter//
+    ///////////////////////////////
+    static class RegistrationAdapter extends RecyclerView.Adapter<RegistrationAdapter.ViewHolder> {
+        private List<RegistrationModel> registrationModelList;
 
-        public RetailerStartUpScreenAdapter(List<RetailerStartUpScreenModel> plateModelList, Context context) {
-            this.plateModelList = plateModelList;
-            this.context = context;
-        }
+        public RegistrationAdapter(List<RegistrationModel> plateModelList) { this.registrationModelList = plateModelList; }
 
         @NonNull
         @Override
-        public PlateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_plates, parent, false);
-            return new PlateViewHolder(view);
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_plates_item, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull PlateViewHolder holder, int position) {
-            RetailerStartUpScreenModel plateModel = plateModelList.get(position);
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            RegistrationModel plateModel = registrationModelList.get(position);
             Picasso.get().load(plateModel.getPlateImage()).placeholder(R.drawable.ic_info_24).error(R.drawable.ic_info_24).into(holder.l_p_imageView);
         }
 
         @Override
         public int getItemCount() {
-            return plateModelList.size();
+            return registrationModelList.size();
         }
 
-        public class PlateViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder {
             private ImageView l_p_imageView;
 
-            public PlateViewHolder(@NonNull View itemView) {
+            public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 l_p_imageView = itemView.findViewById(R.id.l_p_imageView);
             }
@@ -175,5 +172,14 @@ public class RegistrationActivity extends AppCompatActivity {
     private void showSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(RegistrationActivity.this,MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }
