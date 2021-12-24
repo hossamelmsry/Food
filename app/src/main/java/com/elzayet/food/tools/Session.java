@@ -10,24 +10,6 @@ import com.elzayet.food.MainActivity;
 
 public class Session {
 
-    public static void updateUserAccount(Context context , String userName,String userWallet) {
-        SharedPreferences pref = ((Activity) context).getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE);
-        SharedPreferences.Editor handeler = pref.edit();
-        handeler.putString("userName",userName);
-        handeler.putString("userWallet",userWallet);
-        handeler.apply();
-    }
-
-    public static void updateUserAccount(Context context ,String phoneNumber, String userName, String userPassword, String userPinCode) {
-        SharedPreferences pref = ((Activity) context).getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE);
-        SharedPreferences.Editor handeler = pref.edit();
-        handeler.putString("userName"    ,userName);
-        handeler.putString("phoneNumber" ,phoneNumber);
-        handeler.putString("userPassword",userPassword);
-        handeler.putString("userPincode" ,userPinCode);
-        handeler.apply();
-    }
-
     public static void updateUserAccount(Context context,String phoneNumber,String userName,String userPassword,String userPinCode,String userRefellar) {
         SharedPreferences pref = ((Activity) context).getSharedPreferences("ACCOUNT", Context.MODE_PRIVATE);
         SharedPreferences.Editor handeler = pref.edit();

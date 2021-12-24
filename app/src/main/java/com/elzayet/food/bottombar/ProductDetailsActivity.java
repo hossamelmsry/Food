@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.elzayet.food.CartModel;
 import com.elzayet.food.FavoriteModel;
+import com.elzayet.food.MainActivity;
 import com.elzayet.food.ProductModel;
 import com.elzayet.food.R;
 import com.elzayet.food.ShareModel;
@@ -250,7 +251,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
     }
 
     private void callRegistration() {
-        startActivity(new Intent(getBaseContext(), RegistrationActivity.class));
+        Intent re_intent = new Intent(getBaseContext(),RegistrationActivity.class);
+        re_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(re_intent);
         finish();
     }
 

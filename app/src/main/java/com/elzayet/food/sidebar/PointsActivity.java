@@ -1,11 +1,16 @@
 package com.elzayet.food.sidebar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,12 +20,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.elzayet.food.MainActivity;
 import com.elzayet.food.PointsModel;
 import com.elzayet.food.R;
 import com.elzayet.food.sidebar.registration.RegistrationActivity;
 import com.elzayet.food.sidebar.registration.RegistrationModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
@@ -36,11 +44,18 @@ public class PointsActivity extends AppCompatActivity {
     private DailyPointsAdapter dailyPointsAdapter;
     //User Account
     private String phoneNumber;
+    //
+    private String userPoints;
+    //
+    private String dayOfWeek;
+
+    private String currentDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_points);
+        currentDay = new SimpleDateFormat("EEEE").format(new Date());
 
         a_p_userPoints = findViewById(R.id.a_p_userPoints);
         a_p_week       = findViewById(R.id.a_p_week);
@@ -48,8 +63,10 @@ public class PointsActivity extends AppCompatActivity {
         a_p_week.setHasFixedSize(true);
 
         //user Account
-        SharedPreferences pref = getSharedPreferences("ACCOUNT", MODE_PRIVATE);
-        phoneNumber            = pref.getString("phoneNumber", "NOTHING");
+        SharedPreferences prefAccount = getSharedPreferences("ACCOUNT", MODE_PRIVATE);
+        phoneNumber                   = prefAccount.getString("phoneNumber", "NOTHING");
+        SharedPreferences pref        = getSharedPreferences("WEEK", MODE_PRIVATE);
+        dayOfWeek                     = pref.getString(currentDay,"NOTHING");
     }
 
     @Override
@@ -60,7 +77,8 @@ public class PointsActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         PointsModel pointsModel = snapshot.getValue(PointsModel.class);
-                        a_p_userPoints.setText(pointsModel.getPoints());
+                        userPoints = pointsModel.getPoints();
+                        a_p_userPoints.setText(userPoints);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) { Toast.makeText(getBaseContext(), error.getMessage(), Toast.LENGTH_SHORT).show(); }
@@ -73,7 +91,7 @@ public class PointsActivity extends AppCompatActivity {
         pointsModelList.add(new PointsModel(getString(R.string.wednesday),R.drawable.ic_close_lock_gray));
         pointsModelList.add(new PointsModel(getString(R.string.thursday),R.drawable.ic_close_lock_gray));
         pointsModelList.add(new PointsModel(getString(R.string.friday),R.drawable.ic_close_lock_gray));
-        dailyPointsAdapter = new DailyPointsAdapter(pointsModelList);
+        dailyPointsAdapter = new DailyPointsAdapter(pointsModelList,currentDay);
         a_p_week.setAdapter(dailyPointsAdapter);
         dailyPointsAdapter.notifyDataSetChanged();
     }
@@ -82,9 +100,14 @@ public class PointsActivity extends AppCompatActivity {
     //////DailyPointsAdapter///////
     ///////////////////////////////
     private class DailyPointsAdapter extends RecyclerView.Adapter<DailyPointsAdapter.ViewHolder> {
+        private final DatabaseReference WALLETS_DB  = FirebaseDatabase.getInstance().getReference("WALLETS");
         private List<PointsModel> pointsModelList;
+        private String currentDay;
 
-        public DailyPointsAdapter(List<PointsModel> pointsModelList) { this.pointsModelList = pointsModelList; }
+        public DailyPointsAdapter(List<PointsModel> pointsModelList, String currentDay) {
+            this.pointsModelList = pointsModelList;
+            this.currentDay      = currentDay;
+        }
 
         @NonNull
         @Override
@@ -100,10 +123,41 @@ public class PointsActivity extends AppCompatActivity {
             holder.c_d_p_i_container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("A");
-                    Toast.makeText(getBaseContext(), ""+sdf.format(new Date()), Toast.LENGTH_SHORT).show();
+                    if(currentDay.equals(pointsModel.getDayOfWeek())){
+                        if(dayOfWeek.equals("NOTHING")){givePoints();}
+                        else{
+                            Toast.makeText(getBaseContext(), "noooot", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(getBaseContext(), "not", Toast.LENGTH_SHORT).show();
+                    }
+                    onStart();
                 }
             });
+        }
+
+        private void givePoints() {
+            SharedPreferences pref = getSharedPreferences("WEEK", Context.MODE_PRIVATE);
+            SharedPreferences.Editor handeler = pref.edit();
+            handeler.putString(currentDay ,currentDay);
+            handeler.apply();
+
+            final ProgressDialog progressdialog = ProgressDialog.show(PointsActivity.this, "Please wait", "Loading please wait..", true);
+            progressdialog.setCancelable(false);
+            progressdialog.setIcon(R.drawable.ic_launcher_background);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    userPoints = Integer.toString(Integer.parseInt(userPoints)+5);
+                    WALLETS_DB.child(phoneNumber).setValue(new PointsModel(userPoints));
+                    try {
+                        // put the thread to sleep for 2 seconds
+                        Thread.sleep(2000);
+                    } catch (Exception e) { }
+                    progressdialog.dismiss();
+                }
+            }).start();
+
         }
 
         @Override
